@@ -1,0 +1,7 @@
+<h1>New</h1>
+<%= live_component @socket, ProjectAlgoLvWeb.UserLive.FormComponent,
+    id: @user.id || :new,
+    title: @page_title,
+    action: @live_action,
+    user: @user,
+    return_to: Routes.user_index_path(@socket, :index) %>
