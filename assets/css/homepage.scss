@@ -1,0 +1,19 @@
+.home-nav {
+  height: $navbar-height;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+}
+
+.hero-container {
+  min-height: $navbar-avoiding-height;
+  padding: 2rem;
+  display: flex;
+  align-items: center;
+}
+
+.enlarge {
+  font-size: 36px;
+  font-weight: 700;
+}

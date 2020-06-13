@@ -17,10 +17,12 @@ defmodule ProjectAlgoLvWeb.Router do
   scope "/", ProjectAlgoLvWeb do
     pipe_through :browser
 
-    live "/", PageLive, :index
+    live "/", HomeLive, :index
     live "/users", UserLive.Index, :index
     live "/users/new", UserLive.New, :new
     live "/users/:id/edit", UserLive.Index, :edit
+
+    live "/users/login", UserLive.Session, :new
 
     live "/users/:id", UserLive.Show, :show
     live "/users/:id/show/edit", UserLive.Show, :edit
