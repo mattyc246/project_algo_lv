@@ -1,0 +1,73 @@
+<nav class="home-nav">
+  <div class="d-flex align-items-center">
+    <img src='<%= Routes.static_path(@socket, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
+    <h4 class="my-0 ml-3">projectalgo</h4>
+  </div>
+  <%= live_patch "Log In", to: Routes.user_session_path(@socket, :new), class: "link-btn" %>
+</nav>
+<div class="hero-container">
+  <div class="row">
+    <div class="col-12 col-lg-8">
+      <h2 class="enlarge my-3">Turn your trading strategies Into automated algorithms…</h2>
+      <h4 class="my-5">Exclusive Invitational Membership!</h4>
+      <%= live_patch "Find Out More", to: Routes.user_new_path(@socket, :new), class: "link-btn" %>
+    </div>
+    <div class="col-12 col-lg-4">
+      <img class="mx-auto d-none d-lg-block w-75" src='<%= Routes.static_path(@socket, "/images/chart.png") %>' alt="chart">
+    </div>
+  </div>
+</div>
+<div class="blue-container">
+  <h3 class="text-center text-white mb-4">WHAT DO WE OFFER?</h3>
+  <p class="text-justify text-white text-larger">
+    We are an exclusive membership only community that will help turn your trading strategies into automated trading bots. Our core team is comprised of experienced software developers and traders in the cryptocurrency market. Through our expertise and interest in automating trading through algorithmic trading bots, we are now offering the chance for you to turn your strategies into automated trading bots too. Put your strategies to vote and our team will code the bots based off your strategy. See the live results of your strategy in action and statistical data on how it performs. Hold discussions amongst the community and share your trading tips and tricks with each other. Once you gain membership to the community, you will then have access to invite your own members in.
+  </p>
+</div>
+<div class="white-container">
+  <h3 class="text-center mb-4">HOW MUCH DOES IT COST?</h3>
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <p class="text-justify text-larger">Our membership is charged on a yearly basis and this grants you 24/7, all year round access to our live dashboard where you can see all the algorithms in action and access the statistical data about how the different strategies and algorithms are performing. </p>
+      <p class="text-justify text-larger">On top of this, we offer a 7-day no questions asked money back guarantee. For whatever reason, if you decide our platform is not right for you, you are entitled to a full refund.</p>
+      <%= live_patch "USD499 / Year", to: Routes.user_new_path(@socket, :new), class: "link-btn mx-auto" %>
+    </div>
+    <div class="col-12 col-lg-5 offset-lg-1">
+      <img class="mx-auto my-auto d-none d-lg-block w-100" src='<%= Routes.static_path(@socket, "/images/mockup.png") %>' alt="chart">
+    </div>
+  </div>
+</div>
+<div class="blue-container">
+  <h3 class="text-center text-white mb-4">WHAT DO I GET ACCESS TO?</h3>
+  <div class="row">
+    <div class="col-12 col-lg-4">
+      <div class="d-flex my-3 flex-column px-3">
+        <h5 class="text-white text-center">EXCLUSIVE DISCORD SERVER</h5>
+        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@socket, "/icons/discord.png") %>' alt="">
+        <p class="text-white text-justify">
+          Exclusive access to our dedicated Discord server. Hold discussions on trading strategies or anything related to stocks, commodities or cryptocurrency.
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="d-flex my-3 flex-column px-3">
+        <h5 class="text-white text-center">EXCLUSIVE GUIDES</h5>
+        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@socket, "/icons/book.png") %>' alt="">
+        <p class="text-white text-justify">
+        Access to guides on how to setup your algorithmic trading bots with various broker platforms. Learn some basics on writing trading bots.
+        </p>
+      </div>
+    </div>
+    <div class="col-12 col-lg-4">
+      <div class="d-flex my-3 flex-column px-3">
+        <h5 class="text-white text-center">EXPERIENCED PROGRAMMERS</h5>
+        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@socket, "/icons/code.png") %>' alt="">
+        <p class="text-white text-justify">
+          A core team of experienced programmers with varying expertise. Each with a shared interest in financial investment and algorithmic trading bots.
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="white-container">
+  <p class="text-center my-0">&copy; 2020 ProjectAlgo</p>
+</footer>
