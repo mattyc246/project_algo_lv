@@ -10,7 +10,7 @@
     <div class="col-12 col-lg-8">
       <h2 class="enlarge my-3">Turn your trading strategies Into automated algorithms…</h2>
       <h4 class="my-5">Exclusive Invitational Membership!</h4>
-      <%= live_patch "Find Out More", to: Routes.user_new_path(@socket, :new), class: "link-btn" %>
+      <%= live_patch "Find Out More", to: Routes.home_path(@socket, :index), class: "link-btn" %>
     </div>
     <div class="col-12 col-lg-4">
       <img class="mx-auto d-none d-lg-block w-75" src='<%= Routes.static_path(@socket, "/images/chart.png") %>' alt="chart">
@@ -29,7 +29,7 @@
     <div class="col-12 col-lg-6">
       <p class="text-justify text-larger">Our membership is charged on a yearly basis and this grants you 24/7, all year round access to our live dashboard where you can see all the algorithms in action and access the statistical data about how the different strategies and algorithms are performing. </p>
       <p class="text-justify text-larger">On top of this, we offer a 7-day no questions asked money back guarantee. For whatever reason, if you decide our platform is not right for you, you are entitled to a full refund.</p>
-      <%= live_patch "USD499 / Year", to: Routes.user_new_path(@socket, :new), class: "link-btn mx-auto" %>
+      <%= live_patch "USD499 / Year", to: Routes.home_path(@socket, :index), class: "link-btn mx-auto" %>
     </div>
     <div class="col-12 col-lg-5 offset-lg-1">
       <img class="mx-auto my-auto d-none d-lg-block w-100" src='<%= Routes.static_path(@socket, "/images/mockup.png") %>' alt="chart">

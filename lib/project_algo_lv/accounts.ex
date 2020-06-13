@@ -4,8 +4,9 @@ defmodule ProjectAlgoLv.Accounts do
   """
 
   import Ecto.Query, warn: false
+  import Ecto.Changeset
   alias ProjectAlgoLv.Repo
-
+  alias ProjectAlgoLv.Accounts.Invitation
   alias ProjectAlgoLv.Accounts.User
 
   @doc """
@@ -50,9 +51,17 @@ defmodule ProjectAlgoLv.Accounts do
 
   """
   def create_user(attrs \\ %{}) do
-    %User{}
-    |> User.auth_changeset(attrs)
-    |> Repo.insert()
+    result =
+      %User{}
+      |> User.auth_changeset(attrs)
+      |> Repo.insert()
+    with {:ok, user} <- result do
+      %Invitation{}
+        |> Invitation.changeset(%{})
+        |> put_assoc(:user, user)
+        |> Repo.insert()
+    end
+    result
   end
 
   @doc """
@@ -100,5 +109,106 @@ defmodule ProjectAlgoLv.Accounts do
   """
   def change_user(%User{} = user, attrs \\ %{}) do
     User.changeset(user, attrs)
+  end
+
+  @doc """
+  Returns the list of invitations.
+
+  ## Examples
+
+      iex> list_invitations()
+      [%Invitation{}, ...]
+
+  """
+  def list_invitations do
+    Repo.all(Invitation)
+  end
+
+  def list_user_invitations(id) do
+    from(i in Invitation, where: i.user_id == ^id, select: %{invite_code: i.invite_code, invites: i.invites})
+    |> Repo.all()
+  end
+
+  @doc """
+  Gets a single invitation.
+
+  Raises `Ecto.NoResultsError` if the Invitation does not exist.
+
+  ## Examples
+
+      iex> get_invitation!(123)
+      %Invitation{}
+
+      iex> get_invitation!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_invitation_by(params), do: Repo.get_by(Invitation, params)
+
+  def get_valid_invitation(%{invite_code: invite_code}) do
+    from(i in Invitation, where: i.invite_code == ^invite_code and i.invites > 0)
+    |> Repo.one
+  end
+
+  def get_invitation!(id), do: Repo.get!(Invitation, id)
+
+  @doc """
+  Creates a invitation.
+
+  ## Examples
+
+      iex> create_invitation(%{field: value})
+      {:ok, %Invitation{}}
+
+      iex> create_invitation(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+
+  @doc """
+  Updates a invitation.
+
+  ## Examples
+
+      iex> update_invitation(invitation, %{field: new_value})
+      {:ok, %Invitation{}}
+
+      iex> update_invitation(invitation, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_invitation(%Invitation{} = invitation, attrs) do
+    invitation
+    |> Invitation.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a invitation.
+
+  ## Examples
+
+      iex> delete_invitation(invitation)
+      {:ok, %Invitation{}}
+
+      iex> delete_invitation(invitation)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_invitation(%Invitation{} = invitation) do
+    Repo.delete(invitation)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking invitation changes.
+
+  ## Examples
+
+      iex> change_invitation(invitation)
+      %Ecto.Changeset{data: %Invitation{}}
+
+  """
+  def change_invitation(%Invitation{} = invitation, attrs \\ %{}) do
+    Invitation.changeset(invitation, attrs)
   end
 end

@@ -1,7 +1,27 @@
-<h1>New</h1>
-<%= live_component @socket, ProjectAlgoLvWeb.UserLive.FormComponent,
-    id: @user.id || :new,
-    title: @page_title,
-    action: @live_action,
-    user: @user,
-    return_to: Routes.user_index_path(@socket, :index) %>
+<div class="bg-container">
+  <nav class="home-nav">
+    <div class="d-flex align-items-center">
+      <img src='<%= Routes.static_path(@socket, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
+      <h4 class="my-0 ml-3">projectalgo</h4>
+    </div>
+    <%= live_patch "Log In", to: Routes.user_session_path(@socket, :new), class: "link-btn" %>
+  </nav>
+  <div class="hero-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-6 offset-lg-3">
+        <div class="card">
+          <div class="card-body">
+            <%= live_component @socket, ProjectAlgoLvWeb.UserLive.FormComponent,
+                id: @user.id || :new,
+                title: @page_title,
+                action: @live_action,
+                user: @user,
+                return_to: Routes.user_index_path(@socket, :index) %>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

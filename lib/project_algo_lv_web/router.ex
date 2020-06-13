@@ -19,7 +19,7 @@ defmodule ProjectAlgoLvWeb.Router do
 
     live "/", HomeLive, :index
     live "/users", UserLive.Index, :index
-    live "/users/new", UserLive.New, :new
+    live "/invite/:invite_code", UserLive.New, :new
     live "/users/:id/edit", UserLive.Index, :edit
 
     live "/users/login", UserLive.Session, :new
