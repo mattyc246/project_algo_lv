@@ -44,13 +44,17 @@ body {
   color: $primary-white;
   background-color: $secondary-blue;
   border: 0;
-  outline: 0;
+  outline: none;
   text-decoration: none;
 }
 
 .link-btn:hover {
   color: $primary-white;
   text-decoration: none;
+}
+
+.link-btn:focus {
+  outline: none;
 }
 
 .text-justify {

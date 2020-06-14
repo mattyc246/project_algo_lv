@@ -1,19 +1,19 @@
 <nav class="home-nav">
   <div class="d-flex align-items-center">
-    <img src='<%= Routes.static_path(@socket, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
+    <img src='<%= Routes.static_path(@conn, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
     <h4 class="my-0 ml-3">projectalgo</h4>
   </div>
-  <%= live_patch "Log In", to: Routes.user_session_path(@socket, :new), class: "link-btn" %>
+  <%= link "Log In", to: Routes.session_path(@conn, :new), class: "link-btn" %>
 </nav>
 <div class="hero-container">
   <div class="row">
     <div class="col-12 col-lg-8">
       <h2 class="enlarge my-3">Turn your trading strategies Into automated algorithms…</h2>
       <h4 class="my-5">Exclusive Invitational Membership!</h4>
-      <%= live_patch "Find Out More", to: Routes.home_path(@socket, :index), class: "link-btn" %>
+      <%= link "Find Out More", to: Routes.home_path(@conn, :index), class: "link-btn" %>
     </div>
     <div class="col-12 col-lg-4">
-      <img class="mx-auto d-none d-lg-block w-75" src='<%= Routes.static_path(@socket, "/images/chart.png") %>' alt="chart">
+      <img class="mx-auto d-none d-lg-block w-75" src='<%= Routes.static_path(@conn, "/images/chart.png") %>' alt="chart">
     </div>
   </div>
 </div>
@@ -29,10 +29,10 @@
     <div class="col-12 col-lg-6">
       <p class="text-justify text-larger">Our membership is charged on a yearly basis and this grants you 24/7, all year round access to our live dashboard where you can see all the algorithms in action and access the statistical data about how the different strategies and algorithms are performing. </p>
       <p class="text-justify text-larger">On top of this, we offer a 7-day no questions asked money back guarantee. For whatever reason, if you decide our platform is not right for you, you are entitled to a full refund.</p>
-      <%= live_patch "USD499 / Year", to: Routes.home_path(@socket, :index), class: "link-btn mx-auto" %>
+      <%= link "USD499 / Year", to: Routes.home_path(@conn, :index), class: "link-btn mx-auto" %>
     </div>
     <div class="col-12 col-lg-5 offset-lg-1">
-      <img class="mx-auto my-auto d-none d-lg-block w-100" src='<%= Routes.static_path(@socket, "/images/mockup.png") %>' alt="chart">
+      <img class="mx-auto my-auto d-none d-lg-block w-100" src='<%= Routes.static_path(@conn, "/images/mockup.png") %>' alt="chart">
     </div>
   </div>
 </div>
@@ -42,7 +42,7 @@
     <div class="col-12 col-lg-4">
       <div class="d-flex my-3 flex-column px-3">
         <h5 class="text-white text-center">EXCLUSIVE DISCORD SERVER</h5>
-        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@socket, "/icons/discord.png") %>' alt="">
+        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@conn, "/icons/discord.png") %>' alt="">
         <p class="text-white text-justify">
           Exclusive access to our dedicated Discord server. Hold discussions on trading strategies or anything related to stocks, commodities or cryptocurrency.
         </p>
@@ -51,7 +51,7 @@
     <div class="col-12 col-lg-4">
       <div class="d-flex my-3 flex-column px-3">
         <h5 class="text-white text-center">EXCLUSIVE GUIDES</h5>
-        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@socket, "/icons/book.png") %>' alt="">
+        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@conn, "/icons/book.png") %>' alt="">
         <p class="text-white text-justify">
         Access to guides on how to setup your algorithmic trading bots with various broker platforms. Learn some basics on writing trading bots.
         </p>
@@ -60,7 +60,7 @@
     <div class="col-12 col-lg-4">
       <div class="d-flex my-3 flex-column px-3">
         <h5 class="text-white text-center">EXPERIENCED PROGRAMMERS</h5>
-        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@socket, "/icons/code.png") %>' alt="">
+        <img class="mx-auto d-block w-50 my-5" src='<%= Routes.static_path(@conn, "/icons/code.png") %>' alt="">
         <p class="text-white text-justify">
           A core team of experienced programmers with varying expertise. Each with a shared interest in financial investment and algorithmic trading bots.
         </p>

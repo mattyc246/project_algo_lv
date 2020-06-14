@@ -1,9 +1,11 @@
-<h2 class="text-center"><%= @title %></h2>
+<h2 class="text-center">registration</h2>
+<%= form_for @changeset, @action, fn f -> %>
 
-<%= f = form_for @changeset, "#",
-  phx_target: @myself,
-  phx_change: "validate",
-  phx_submit: "save" %>
+  <%= if @changeset.action do %>
+    <p class="text-danger mb-3">Error creating registration, see below.</p>
+  <% else %>
+    <p class="mb-3">Please make sure to fill out all the required fields when creating your account.</p>
+  <% end %>
 
   <div class="form-group">
     <%= label f, :name %>
@@ -30,4 +32,5 @@
   </div>
 
   <%= submit "Save", phx_disable_with: "Saving...", class: "link-btn mx-auto d-block" %>
-</form>
+
+<% end %>

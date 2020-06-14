@@ -1,0 +1,36 @@
+<div class="bg-container">
+  <nav class="home-nav">
+    <div class="d-flex align-items-center">
+      <img src='<%= Routes.static_path(@conn, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
+      <h4 class="my-0 ml-3">projectalgo</h4>
+    </div>
+    <%= link "Home", to: Routes.home_path(@conn, :index), class: "link-btn" %>
+  </nav>
+  <div class="hero-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-6 offset-lg-3">
+          <div class="card border-0 rounded shadow">
+            <div class="card-body">
+              <h2 class="text-center">Login</h2>
+              <%= form_for @conn, Routes.session_path(@conn, :create), [as: :session], fn f -> %>
+                <div class="form-group">
+                  <%= label f, :email %>
+                  <%= text_input f, :email, class: "custom-input" %>
+                  <%= error_tag f, :email %>
+                </div>
+
+                <div class="form-group">
+                  <%= label f, :password %>
+                  <%= password_input f, :password, value: input_value(f, :password), class: "custom-input" %>
+                  <%= error_tag f, :password %>
+                </div>
+                <%= submit "Sign in", phx_disable_with: "Saving...", class: "link-btn mx-auto d-block" %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

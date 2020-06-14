@@ -1,0 +1,22 @@
+<div class="bg-container">
+  <nav class="home-nav">
+    <div class="d-flex align-items-center">
+      <img src='<%= Routes.static_path(@conn, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
+      <h4 class="my-0 ml-3">projectalgo</h4>
+    </div>
+    <%= link "Log In", to: Routes.home_path(@conn, :index), class: "link-btn" %>
+  </nav>
+  <div class="hero-container">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12 col-lg-6 offset-lg-3">
+          <div class="card border-0 rounded shadow">
+            <div class="card-body">
+              <%= render "form.html", Map.put(assigns, :action, Routes.user_path(@conn, :create, @invitation.invite_code)) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
