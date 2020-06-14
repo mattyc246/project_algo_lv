@@ -27,10 +27,10 @@ defmodule ProjectAlgoLvWeb.LiveHelpers do
   def assign_defaults(%{"user_id" => user_id}, socket) do
     socket = assign(socket, current_user: Accounts.get_user!(user_id))
 
-    if socket.assigns.current_user.confirmed_at do
+    if socket.assigns.current_user do
       socket
     else
-      redirect(socket, to: "/users/login")
+      redirect(socket, to: "/login")
     end
   end
 end
