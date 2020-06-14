@@ -24,7 +24,7 @@ defmodule ProjectAlgoLvWeb.UserLive.FormComponent do
   end
 
   def handle_event("save", %{"user" => user_params}, socket) do
-    save_user(socket, socket.assigns.action, user_params)
+    save_user(socket, socket.assigns.action, user_params, socket.assigns.invite_code)
   end
 
   defp save_user(socket, :edit, user_params) do
@@ -40,9 +40,11 @@ defmodule ProjectAlgoLvWeb.UserLive.FormComponent do
     end
   end
 
-  defp save_user(socket, :new, user_params) do
+  defp save_user(socket, :new, user_params, invite_code) do
+    invite = Accounts.get_invitation_by(%{invite_code: invite_code})
     case Accounts.create_user(user_params) do
       {:ok, _user} ->
+        Accounts.update_invitation(invite, %{invites: invite.invites - 1})
         {:noreply,
          socket
          |> put_flash(:info, "User created successfully")

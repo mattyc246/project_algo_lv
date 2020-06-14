@@ -6,6 +6,7 @@
 @import "../node_modules/nprogress/nprogress.css";
 @import "./variables";
 @import "./homepage";
+@import "./form";
 
 * {
   box-sizing: border-box;
@@ -64,7 +65,6 @@ body {
 .invalid-feedback {
   color: #a94442;
   display: block;
-  margin: -1rem 0 2rem;
 }
 
 .phx-no-feedback.invalid-feedback,

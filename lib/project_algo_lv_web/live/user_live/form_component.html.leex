@@ -7,25 +7,25 @@
 
   <div class="form-group">
     <%= label f, :name %>
-    <%= text_input f, :name, class: "form-control" %>
+    <%= text_input f, :name, class: "custom-input" %>
     <%= error_tag f, :name %>
   </div>
 
   <div class="form-group">
     <%= label f, :email %>
-    <%= text_input f, :email, class: "form-control" %>
+    <%= text_input f, :email, class: "custom-input" %>
     <%= error_tag f, :email %>
   </div>
 
   <div class="form-group">
     <%= label f, :password %>
-    <%= text_input f, :password, class: "form-control" %>
+    <%= password_input f, :password, value: input_value(f, :password), class: "custom-input" %>
     <%= error_tag f, :password %>
   </div>
 
   <div class="form-group">
     <%= label f, :password_confirmation %>
-    <%= text_input f, :password_confirmation, class: "form-control" %>
+    <%= password_input f, :password_confirmation, value: input_value(f, :password_confirmation), class: "custom-input" %>
     <%= error_tag f, :password_confirmation %>
   </div>
 

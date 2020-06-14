@@ -29,6 +29,7 @@ defmodule ProjectAlgoLv.Accounts.User do
     |> validate_confirmation(:password)
     |> validate_length(:password, min: 6, max: 24)
     |> validate_format(:email, ~r/(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)/)
+    |> unique_constraint(:email)
   end
 
   def auth_changeset(user, attrs) do

@@ -17,7 +17,8 @@
                 title: @page_title,
                 action: @live_action,
                 user: @user,
-                return_to: Routes.user_index_path(@socket, :index) %>
+                invite_code: @invitation.invite_code,
+                return_to: Routes.home_path(@socket, :index) %>
           </div>
         </div>
         </div>

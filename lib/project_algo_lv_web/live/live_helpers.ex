@@ -1,5 +1,8 @@
 defmodule ProjectAlgoLvWeb.LiveHelpers do
+  import Phoenix.LiveView
   import Phoenix.LiveView.Helpers
+
+  alias ProjectAlgoLv.Accounts
 
   @doc """
   Renders a component inside the `ProjectAlgoLvWeb.ModalComponent` component.
@@ -19,5 +22,15 @@ defmodule ProjectAlgoLvWeb.LiveHelpers do
     path = Keyword.fetch!(opts, :return_to)
     modal_opts = [id: :modal, return_to: path, component: component, opts: opts]
     live_component(socket, ProjectAlgoLvWeb.ModalComponent, modal_opts)
+  end
+
+  def assign_defaults(%{"user_id" => user_id}, socket) do
+    socket = assign(socket, current_user: Accounts.get_user!(user_id))
+
+    if socket.assigns.current_user.confirmed_at do
+      socket
+    else
+      redirect(socket, to: "/users/login")
+    end
   end
 end

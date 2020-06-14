@@ -47,6 +47,7 @@ defmodule ProjectAlgoLvWeb do
         layout: {ProjectAlgoLvWeb.LayoutView, "live.html"}
 
       unquote(view_helpers())
+      import ProjectAlgoLvWeb.LiveHelpers
     end
   end
 

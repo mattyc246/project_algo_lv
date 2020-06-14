@@ -17,7 +17,8 @@ defmodule ProjectAlgoLvWeb.UserLive.New do
         {:noreply,
         socket
         |> assign(:page_title, page_title(socket.assigns.live_action))
-        |> assign(:user, %User{})}
+        |> assign(:user, %User{})
+        |> assign(:invitation, invitation)}
       nil ->
         {:noreply,
         socket
