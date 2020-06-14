@@ -1,0 +1,25 @@
+<div class="dash-nav">
+  <div class="dash-brand">
+    <img src='<%= Routes.static_path(@socket, "/icons/open-menu.png") %>' alt="burger" class="burger">
+    <div class="brand">
+      <img src='<%= Routes.static_path(@socket, "/icons/report-white.png") %>' alt="graph" width="30px">
+      <h5>PROJECTALGO</h5>
+    </div>
+  </div>
+  <div class="dash-links">
+    <%= link to: Routes.dashboard_index_path(@socket, :index), class: "dash-btn mb-4 mt-2" do %>
+      <img src='<%= Routes.static_path(@socket, "/icons/menu.png") %>' alt="menu" width="25px">
+      <small>Dashboard</small>
+    <% end %>
+    <%= link to: Routes.accounts_index_path(@socket, :index), class: "dash-btn mb-4" do %>
+      <img src='<%= Routes.static_path(@socket, "/icons/graph.png") %>' alt="menu" width="25px">
+      <small>Accounts</small>
+    <% end %>
+  </div>
+  <div class="dash-footer">
+    <%= link to: Routes.session_path(@socket, :delete), method: :post, class: "dash-btn" do %>
+      <img src='<%= Routes.static_path(@socket, "/icons/logout.png") %>' alt="menu" width="25px">
+      <small>Sign Out</small>
+    <% end %>
+  </div>
+</div>
