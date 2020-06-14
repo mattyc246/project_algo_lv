@@ -1,4 +1,4 @@
-defmodule ProjectAlgoLvWeb.DashboardLive.Index do
+defmodule ProjectAlgoLvWeb.AccountsLive.Index do
   use ProjectAlgoLvWeb, :live_view
 
   alias ProjectAlgoLv.Accounts
@@ -16,8 +16,8 @@ defmodule ProjectAlgoLvWeb.DashboardLive.Index do
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Dashboard")
-    |> assign(:page_icon, "/icons/menu-black.png")
+    |> assign(:page_title, "Accounts")
+    |> assign(:page_icon, "/icons/graph-black.png")
   end
 
 end

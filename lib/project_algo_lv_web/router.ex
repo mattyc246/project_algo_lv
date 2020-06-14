@@ -45,6 +45,7 @@ defmodule ProjectAlgoLvWeb.Router do
     pipe_through [:browser, :authenticated_user]
 
     live "/dashboard", DashboardLive.Index, :index
+    live "/dashboard/accounts", AccountsLive.Index, :index
   end
 
   # Other scopes may use custom stacks.
