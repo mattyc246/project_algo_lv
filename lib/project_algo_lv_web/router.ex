@@ -5,9 +5,14 @@ defmodule ProjectAlgoLvWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {ProjectAlgoLvWeb.LayoutView, :root}
+    plug :put_root_layout, {ProjectAlgoLvWeb.LayoutView, :app}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug ProjectAlgoLvWeb.Auth
+  end
+
+  pipeline :authenticated_user do
+    plug ProjectAlgoLvWeb.LoginRequired
   end
 
   pipeline :api do
@@ -17,15 +22,29 @@ defmodule ProjectAlgoLvWeb.Router do
   scope "/", ProjectAlgoLvWeb do
     pipe_through :browser
 
-    live "/", HomeLive, :index
-    live "/users", UserLive.Index, :index
-    live "/users/new", UserLive.New, :new
-    live "/users/:id/edit", UserLive.Index, :edit
+    get "/", HomeController, :index
 
-    live "/users/login", UserLive.Session, :new
+    get "/invite/:invite_code", UserController, :new
+    post "/users/:invite_code", UserController, :create
 
-    live "/users/:id", UserLive.Show, :show
-    live "/users/:id/show/edit", UserLive.Show, :edit
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    post "/logout", SessionController, :delete
+    # live "/", HomeLive, :index
+    # live "/users", UserLive.Index, :index
+    # live "/invite/:invite_code", UserLive.New, :new
+    # live "/users/:id/edit", UserLive.Index, :edit
+
+    # live "/users/login", UserLive.Session, :new
+
+    # live "/users/:id", UserLive.Show, :show
+    # live "/users/:id/show/edit", UserLive.Show, :edit
+  end
+
+  scope "/", ProjectAlgoLvWeb do
+    pipe_through [:browser, :authenticated_user]
+
+    live "/dashboard", DashboardLive.Index, :index
   end
 
   # Other scopes may use custom stacks.

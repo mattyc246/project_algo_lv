@@ -1,0 +1,36 @@
+<h2 class="text-center">registration</h2>
+<%= form_for @changeset, @action, fn f -> %>
+
+  <%= if @changeset.action do %>
+    <p class="text-danger mb-3">Error creating registration, see below.</p>
+  <% else %>
+    <p class="mb-3">Please make sure to fill out all the required fields when creating your account.</p>
+  <% end %>
+
+  <div class="form-group">
+    <%= label f, :name %>
+    <%= text_input f, :name, class: "custom-input" %>
+    <%= error_tag f, :name %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :email %>
+    <%= text_input f, :email, class: "custom-input" %>
+    <%= error_tag f, :email %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password %>
+    <%= password_input f, :password, value: input_value(f, :password), class: "custom-input" %>
+    <%= error_tag f, :password %>
+  </div>
+
+  <div class="form-group">
+    <%= label f, :password_confirmation %>
+    <%= password_input f, :password_confirmation, value: input_value(f, :password_confirmation), class: "custom-input" %>
+    <%= error_tag f, :password_confirmation %>
+  </div>
+
+  <%= submit "Save", phx_disable_with: "Saving...", class: "link-btn mx-auto d-block" %>
+
+<% end %>
