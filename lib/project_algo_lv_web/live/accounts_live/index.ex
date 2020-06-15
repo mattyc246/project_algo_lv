@@ -5,8 +5,8 @@ defmodule ProjectAlgoLvWeb.AccountsLive.Index do
   alias ProjectAlgoLv.Accounts.User
 
   @impl true
-  def mount(_params, _session, socket) do
-    {:ok, socket}
+  def mount(_params, session, socket) do
+    {:ok, assign_defaults(session, socket)}
   end
 
   @impl true
