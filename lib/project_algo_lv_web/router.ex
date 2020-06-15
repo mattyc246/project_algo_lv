@@ -30,15 +30,6 @@ defmodule ProjectAlgoLvWeb.Router do
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     post "/logout", SessionController, :delete
-    # live "/", HomeLive, :index
-    # live "/users", UserLive.Index, :index
-    # live "/invite/:invite_code", UserLive.New, :new
-    # live "/users/:id/edit", UserLive.Index, :edit
-
-    # live "/users/login", UserLive.Session, :new
-
-    # live "/users/:id", UserLive.Show, :show
-    # live "/users/:id/show/edit", UserLive.Show, :edit
   end
 
   scope "/", ProjectAlgoLvWeb do
