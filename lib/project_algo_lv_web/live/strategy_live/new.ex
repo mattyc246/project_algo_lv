@@ -1,8 +1,8 @@
-defmodule ProjectAlgoLvWeb.AccountsLive.Index do
+defmodule ProjectAlgoLvWeb.StrategyLive.New do
   use ProjectAlgoLvWeb, :live_view
 
-  alias ProjectAlgoLv.Accounts
-  alias ProjectAlgoLv.Accounts.User
+  alias ProjectAlgoLv.Trades
+  alias ProjectAlgoLv.Trades.Strategy
 
   @impl true
   def mount(_params, session, socket) do
@@ -14,10 +14,10 @@ defmodule ProjectAlgoLvWeb.AccountsLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :index, _params) do
+  defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "Accounts")
-    |> assign(:page_icon, "/icons/graph-black.png")
+    |> assign(:page_title, "New Strategy")
+    |> assign(:page_icon, "/icons/calculator-black.png")
+    |> assign(:strategy, %Strategy{})
   end
-
 end

@@ -34,6 +34,17 @@ liveSocket.connect();
 let menuButton = document.querySelector(".burger");
 let dashMenu = document.querySelector(".dash-nav");
 let dashContent = document.querySelector(".dash-content")
+let clickToRevealBtns = document.querySelectorAll('.ctr-btn')
+
+clickToRevealBtns.forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    let id = e.target.getAttribute('data-id')
+    let accessTokenField = document.getElementById(`hat-${id}`)
+
+    btn.classList.add('d-none')
+    accessTokenField.classList.remove('d-none')
+  })
+})
 
 menuButton.addEventListener("click", () => {
   if (dashMenu.classList.contains("expanded")) {

@@ -32,11 +32,17 @@ defmodule ProjectAlgoLvWeb.Router do
     post "/logout", SessionController, :delete
   end
 
-  scope "/", ProjectAlgoLvWeb do
+  scope "/dashboard", ProjectAlgoLvWeb do
     pipe_through [:browser, :authenticated_user]
 
-    live "/dashboard", DashboardLive.Index, :index
-    live "/dashboard/accounts", AccountsLive.Index, :index
+    live "/", DashboardLive.Index, :index
+
+    live "/strategies", StrategyLive.Index, :index
+    live "/strategies/new", StrategyLive.New, :new
+    live "/strategies/:id/edit", StrategyLive.Index, :edit
+
+    live "/strategies/:id", StrategyLive.Show, :show
+    live "/strategies/:id/show/edit", StrategyLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

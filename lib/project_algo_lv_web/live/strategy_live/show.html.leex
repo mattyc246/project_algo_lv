@@ -1,0 +1,32 @@
+<h1>Show Strategy</h1>
+
+<%= if @live_action in [:edit] do %>
+  <%= live_modal @socket, ProjectAlgoLvWeb.StrategyLive.FormComponent,
+    id: @strategy.id,
+    title: @page_title,
+    action: @live_action,
+    strategy: @strategy,
+    return_to: Routes.strategy_show_path(@socket, :show, @strategy) %>
+<% end %>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @strategy.name %>
+  </li>
+
+  <li>
+    <strong>Description:</strong>
+    <%= @strategy.description %>
+  </li>
+
+  <li>
+    <strong>Access token:</strong>
+    <%= @strategy.access_token %>
+  </li>
+
+</ul>
+
+<span><%= live_patch "Edit", to: Routes.strategy_show_path(@socket, :edit, @strategy), class: "button" %></span>
+<span><%= live_redirect "Back", to: Routes.strategy_index_path(@socket, :index) %></span>
