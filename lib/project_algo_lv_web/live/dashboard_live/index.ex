@@ -1,12 +1,20 @@
 defmodule ProjectAlgoLvWeb.DashboardLive.Index do
   use ProjectAlgoLvWeb, :live_view
 
+  alias ProjectAlgoLvWeb.DynamoHelper
   alias ProjectAlgoLv.Accounts
   alias ProjectAlgoLv.Accounts.User
 
   @impl true
   def mount(_params, session, socket) do
-    {:ok, assign_defaults(session, socket)}
+    :timer.send_interval(10_000, self(), :user_balances)
+    {:ok,
+      assign_defaults(session, socket)
+      |> assign(:balances, DynamoHelper.fetch_user_data(session["user_id"]))}
+  end
+
+  def handle_info(:user_balances, socket) do
+    {:noreply, assign(socket, :balances, DynamoHelper.fetch_user_data(socket.assigns.current_user.id))}
   end
 
   @impl true

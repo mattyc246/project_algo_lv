@@ -26,7 +26,12 @@ config :logger, :console,
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
 
-config :chartkick, json_serializer: Jason
+# DynamoDb
+config :ex_aws,
+  debug_requests: false, # set to true to monitor the DDB requests
+  access_key_id: System.get_env("AWS_ACCESS_KEY"),
+  secret_access_key: System.get_env("AWS_SECRET_KEY"),
+  region: System.get_env("DYNAMODB_REGION")
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

@@ -1,22 +1,19 @@
 defmodule ProjectAlgoLvWeb.StrategyLive.Show do
   use ProjectAlgoLvWeb, :live_view
+  alias ProjectAlgoLvWeb.DynamoHelper
 
   alias ProjectAlgoLv.Trades
 
   @impl true
-  def mount(_params, session, socket) do
-    :timer.send_interval(5_000, self(), :next_data)
-    date_now = DateTime.utc_now
-    data = Jason.encode!(%{date_now => Enum.random(1..200)})
+  def mount(%{"id" => id}, session, socket) do
+    :timer.send_interval(120_000, self(), :poll_data)
     {:ok,
       assign_defaults(session, socket)
-      |> assign(:historical_data, data)}
+      |> assign(:historical_data, Jason.encode!(DynamoHelper.fetch_sorted_historical_data(id)))}
   end
 
-  def handle_info(:next_data, socket) do
-    date_now = DateTime.utc_now
-    data = Map.put(Jason.decode!(socket.assigns.historical_data), date_now, Enum.random(1..200))
-    {:noreply, assign(socket, :historical_data, Jason.encode!(data))}
+  def handle_info(:poll_data, socket) do
+    {:noreply, assign(socket, :historical_data, Jason.encode!(DynamoHelper.fetch_sorted_historical_data(socket.assigns.strategy.id)))}
   end
 
   @impl true
@@ -29,7 +26,4 @@ defmodule ProjectAlgoLvWeb.StrategyLive.Show do
      |> assign(:strategy, strategy)}
   end
 
-  defp fetch_historical_data() do
-
-  end
 end

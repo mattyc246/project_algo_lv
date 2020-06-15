@@ -16,6 +16,7 @@ defmodule ProjectAlgoLvWeb.Router do
   end
 
   pipeline :api do
+    plug CORSPlug, origin: "*"
     plug :accepts, ["json"]
   end
 
@@ -45,9 +46,11 @@ defmodule ProjectAlgoLvWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ProjectAlgoLvWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", ProjectAlgoLvWeb do
+    pipe_through :api
+
+    post "/strategy/", HistoricalDatumController, :create
+  end
 
   # Enables LiveDashboard only for development
   #

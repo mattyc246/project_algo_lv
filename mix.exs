@@ -48,7 +48,9 @@ defmodule ProjectAlgoLv.MixProject do
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
       {:pbkdf2_elixir, "~> 1.2.1"},
-      {:chartkick, "~>0.4.0"}
+      {:ex_aws_dynamo, "~> 3.0"},
+      {:hackney, "~> 1.9"},
+      {:cors_plug, "~> 1.5"}
     ]
   end
 
