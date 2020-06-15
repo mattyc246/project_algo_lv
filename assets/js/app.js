@@ -16,13 +16,19 @@ import "phoenix_html";
 import { Socket } from "phoenix";
 import NProgress from "nprogress";
 import { LiveSocket } from "phoenix_live_view";
+import Chartkick from "chartkick";
+import Chart from "chart.js";
+import Hooks from "./hooks"
+
+Chartkick.use(Chart);
 
 let csrfToken = document
   .querySelector("meta[name='csrf-token']")
   .getAttribute("content");
-let liveSocket = new LiveSocket("/live", Socket, {
+let liveSocket = new LiveSocket("/live", Socket, { hooks: Hooks,
   params: { _csrf_token: csrfToken },
 });
+
 
 // Show progress bar on live navigation and form submits
 window.addEventListener("phx:page-loading-start", (info) => NProgress.start());
@@ -34,17 +40,6 @@ liveSocket.connect();
 let menuButton = document.querySelector(".burger");
 let dashMenu = document.querySelector(".dash-nav");
 let dashContent = document.querySelector(".dash-content")
-let clickToRevealBtns = document.querySelectorAll('.ctr-btn')
-
-clickToRevealBtns.forEach(btn => {
-  btn.addEventListener('click', (e) => {
-    let id = e.target.getAttribute('data-id')
-    let accessTokenField = document.getElementById(`hat-${id}`)
-
-    btn.classList.add('d-none')
-    accessTokenField.classList.remove('d-none')
-  })
-})
 
 menuButton.addEventListener("click", () => {
   if (dashMenu.classList.contains("expanded")) {

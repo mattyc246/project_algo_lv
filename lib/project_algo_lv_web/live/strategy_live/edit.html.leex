@@ -1,0 +1,22 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+        <%= live_patch to: Routes.strategy_index_path(@socket, :index), class: "link-btn max-200" do %>
+          &larr; Go Back
+        <% end %>
+        <div class="row">
+          <div class="col-6 offset-3">
+            <%= live_component @socket, ProjectAlgoLvWeb.StrategyLive.FormComponent,
+                id: @strategy.id,
+                title: @page_title,
+                action: @live_action,
+                strategy: @strategy,
+                button_text: "Update Strategy",
+                return_to: Routes.strategy_show_path(@socket, :show, @strategy) %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

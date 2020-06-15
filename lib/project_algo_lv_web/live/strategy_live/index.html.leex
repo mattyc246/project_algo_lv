@@ -19,9 +19,9 @@
                 <tr id="strategy-<%= strategy.id %>">
                   <td><%= idx + 1 %></td>
                   <td><%= strategy.name %></td>
-                  <td style="min-width: 400px;"><span class="ctr-btn" data-id="<%= strategy.id %>">Click to reveal</span><span id="hat-<%= strategy.id %>" class="d-none"><%= strategy.access_token %></span></td>
+                  <td style="min-width: 400px;"><%= live_component @socket, ProjectAlgoLvWeb.StrategyLive.HiddenTokenComponent, id: strategy.id, token: strategy.access_token %></td>
                   <td><%= live_redirect "Show", to: Routes.strategy_show_path(@socket, :show, strategy) %></td>
-                  <td><%= live_patch "Edit", to: Routes.strategy_index_path(@socket, :edit, strategy) %></td>
+                  <td><%= live_patch "Edit", to: Routes.strategy_edit_path(@socket, :edit, strategy) %></td>
                   <td><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: strategy.id, data: [confirm: "Are you sure?"], class: "text-danger" %></td>
                   </td>
                 </tr>
