@@ -1,0 +1,6 @@
+- Main dashboard
+  - Fetch all the last records for each of the strategies a user has
+  - Sum up all the margin balances to get a total wallet value
+
+- Accounts
+  - Strategy needs to be linked to an account

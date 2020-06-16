@@ -43,6 +43,8 @@ defmodule ProjectAlgoLvWeb.Router do
     live "/strategies/:id/edit", StrategyLive.Edit, :edit
 
     live "/strategies/:id", StrategyLive.Show, :show
+
+    live "/accounts", TradeAccountLive.Index, :index
   end
 
   # Other scopes may use custom stacks.

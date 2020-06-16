@@ -65,4 +65,65 @@ defmodule ProjectAlgoLv.TradesTest do
       assert %Ecto.Changeset{} = Trades.change_strategy(strategy)
     end
   end
+
+  describe "trade_accounts" do
+    alias ProjectAlgoLv.Trades.TradeAccount
+
+    @valid_attrs %{name: "some name", platform: "some platform"}
+    @update_attrs %{name: "some updated name", platform: "some updated platform"}
+    @invalid_attrs %{name: nil, platform: nil}
+
+    def trade_account_fixture(attrs \\ %{}) do
+      {:ok, trade_account} =
+        attrs
+        |> Enum.into(@valid_attrs)
+        |> Trades.create_trade_account()
+
+      trade_account
+    end
+
+    test "list_trade_accounts/0 returns all trade_accounts" do
+      trade_account = trade_account_fixture()
+      assert Trades.list_trade_accounts() == [trade_account]
+    end
+
+    test "get_trade_account!/1 returns the trade_account with given id" do
+      trade_account = trade_account_fixture()
+      assert Trades.get_trade_account!(trade_account.id) == trade_account
+    end
+
+    test "create_trade_account/1 with valid data creates a trade_account" do
+      assert {:ok, %TradeAccount{} = trade_account} = Trades.create_trade_account(@valid_attrs)
+      assert trade_account.name == "some name"
+      assert trade_account.platform == "some platform"
+    end
+
+    test "create_trade_account/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Trades.create_trade_account(@invalid_attrs)
+    end
+
+    test "update_trade_account/2 with valid data updates the trade_account" do
+      trade_account = trade_account_fixture()
+      assert {:ok, %TradeAccount{} = trade_account} = Trades.update_trade_account(trade_account, @update_attrs)
+      assert trade_account.name == "some updated name"
+      assert trade_account.platform == "some updated platform"
+    end
+
+    test "update_trade_account/2 with invalid data returns error changeset" do
+      trade_account = trade_account_fixture()
+      assert {:error, %Ecto.Changeset{}} = Trades.update_trade_account(trade_account, @invalid_attrs)
+      assert trade_account == Trades.get_trade_account!(trade_account.id)
+    end
+
+    test "delete_trade_account/1 deletes the trade_account" do
+      trade_account = trade_account_fixture()
+      assert {:ok, %TradeAccount{}} = Trades.delete_trade_account(trade_account)
+      assert_raise Ecto.NoResultsError, fn -> Trades.get_trade_account!(trade_account.id) end
+    end
+
+    test "change_trade_account/1 returns a trade_account changeset" do
+      trade_account = trade_account_fixture()
+      assert %Ecto.Changeset{} = Trades.change_trade_account(trade_account)
+    end
+  end
 end

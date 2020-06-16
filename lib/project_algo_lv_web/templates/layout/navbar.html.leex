@@ -11,6 +11,10 @@
       <img src='<%= Routes.static_path(@socket, "/icons/menu.png") %>' alt="menu" width="25px">
       <small>Dashboard</small>
     <% end %>
+    <%= link to: Routes.trade_account_index_path(@socket, :index), class: "dash-btn mb-5" do %>
+      <img src='<%= Routes.static_path(@socket, "/icons/graph.png") %>' alt="menu" width="25px">
+      <small>Accounts</small>
+    <% end %>
     <%= link to: Routes.strategy_index_path(@socket, :index), class: "dash-btn mb-5" do %>
       <img src='<%= Routes.static_path(@socket, "/icons/calculator.png") %>' alt="menu" width="25px">
       <small>Strategies</small>
