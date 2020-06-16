@@ -1,6 +1,6 @@
-<div class="dash-nav">
+<div class='dash-nav <%= if @expanded, do: "expanded", else: "" %>'>
   <div class="dash-brand">
-    <img src='<%= Routes.static_path(@socket, "/icons/open-menu.png") %>' alt="burger" class="burger">
+    <img src='<%= Routes.static_path(@socket, "/icons/open-menu.png") %>' phx-click="expand" phx-target="<%= @myself %>" alt="burger" class="burger">
     <div class="brand">
       <img src='<%= Routes.static_path(@socket, "/icons/report-white.png") %>' alt="graph" width="30px">
       <h5>PROJECTALGO</h5>

@@ -92,7 +92,7 @@
   }
 }
 
-.dash-content {
+.dash-nav + .dash-content {
   width: calc(100% - 288px);
   height: 100%;
   transition: 0.5s ease;
@@ -105,7 +105,7 @@
   }
 }
 
-.dash-content.expanded {
+.dash-nav.expanded + .dash-content {
   width: calc(100% - 72px);
 }
 
