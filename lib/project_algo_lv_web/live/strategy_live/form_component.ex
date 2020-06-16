@@ -24,7 +24,7 @@ defmodule ProjectAlgoLvWeb.StrategyLive.FormComponent do
   end
 
   def handle_event("save", %{"strategy" => strategy_params}, socket) do
-    save_strategy(socket, socket.assigns.action, strategy_params, socket.assigns.user)
+    save_strategy(socket, socket.assigns.action, strategy_params)
   end
 
   defp save_strategy(socket, :edit, strategy_params, _user) do
@@ -40,8 +40,8 @@ defmodule ProjectAlgoLvWeb.StrategyLive.FormComponent do
     end
   end
 
-  defp save_strategy(socket, :new, strategy_params, user) do
-    case Trades.create_strategy(user, strategy_params) do
+  defp save_strategy(socket, :new, strategy_params) do
+    case Trades.create_strategy(strategy_params) do
       {:ok, _strategy} ->
         {:noreply,
          socket

@@ -20,5 +20,6 @@ defmodule ProjectAlgoLvWeb.StrategyLive.Edit do
     |> assign(:page_title, "Edit #{strategy.name}")
     |> assign(:page_icon, "/icons/calculator-black.png")
     |> assign(:strategy, strategy)
+    |> assign(:trade_accounts, Trades.list_user_trade_accounts(socket.assigns.current_user))
   end
 end

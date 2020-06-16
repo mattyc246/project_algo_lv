@@ -7,7 +7,7 @@ defmodule ProjectAlgoLv.Trades do
   import Ecto.Changeset
   alias ProjectAlgoLv.Repo
   alias ProjectAlgoLv.Accounts.User
-
+  alias ProjectAlgoLv.Trades.TradeAccount
   alias ProjectAlgoLv.Trades.Strategy
 
   @doc """
@@ -24,7 +24,7 @@ defmodule ProjectAlgoLv.Trades do
   end
 
   def list_user_strategies(%User{} = user) do
-    from(s in Strategy, where: s.user_id == ^user.id)
+    from(s in Strategy, join: ta in TradeAccount, on: s.trade_account_id == ta.id, where: ta.user_id == ^user.id)
     |> Repo.all()
   end
 
@@ -44,6 +44,8 @@ defmodule ProjectAlgoLv.Trades do
   """
   def get_strategy!(id), do: Repo.get!(Strategy, id)
 
+  def get_strategy_by!(params), do: Repo.get_by!(Strategy, params)
+
   @doc """
   Creates a strategy.
 
@@ -56,10 +58,9 @@ defmodule ProjectAlgoLv.Trades do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_strategy(%User{} = user, attrs \\ %{}) do
+  def create_strategy(attrs \\ %{}) do
     %Strategy{}
     |> Strategy.changeset(attrs)
-    |> put_assoc(:user, user)
     |> Repo.insert()
   end
 
@@ -110,7 +111,6 @@ defmodule ProjectAlgoLv.Trades do
     Strategy.changeset(strategy, attrs)
   end
 
-  alias ProjectAlgoLv.Trades.TradeAccount
 
   @doc """
   Returns the list of trade_accounts.
@@ -123,6 +123,11 @@ defmodule ProjectAlgoLv.Trades do
   """
   def list_trade_accounts do
     Repo.all(TradeAccount)
+  end
+
+  def list_user_trade_accounts(%User{} = user) do
+    from(ta in TradeAccount, where: ta.user_id == ^user.id)
+    |> Repo.all()
   end
 
   @doc """
@@ -153,9 +158,10 @@ defmodule ProjectAlgoLv.Trades do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_trade_account(attrs \\ %{}) do
+  def create_trade_account(%User{} = user, attrs \\ %{}) do
     %TradeAccount{}
     |> TradeAccount.changeset(attrs)
+    |> put_assoc(:user, user)
     |> Repo.insert()
   end
 

@@ -1,8 +1,10 @@
 defmodule ProjectAlgoLvWeb.HistoricalDatumController do
     use ProjectAlgoLvWeb, :controller
     alias ExAws.Dynamo
+    alias ProjectAlgoLv.Trades
 
     def create(conn, %{"data" => transaction_params}) do
+        strategy = Trades.get_strategy_by!(%{access_token: transaction_params["strategy_access_token"]})
         last_price = transaction_params["last_price"] / 1
         wallet_balance_usd =
           transaction_params["wallet_balance"]
@@ -27,6 +29,7 @@ defmodule ProjectAlgoLvWeb.HistoricalDatumController do
 
         historical_datum = %{
             strategy_access_token: transaction_params["strategy_access_token"],
+            account_id: strategy.trade_account_id,
             symbol: transaction_params["symbol"],
             positions: transaction_params["positions"],
             realised_pnl: realised_pnl_usd,
@@ -34,7 +37,7 @@ defmodule ProjectAlgoLvWeb.HistoricalDatumController do
             margin_balance: margin_balance_usd,
             wallet_balance: wallet_balance_usd,
             last_price: transaction_params["last_price"] / 1,
-            created_at: DateTime.to_string(DateTime.utc_now)
+            created_at: DateTime.to_iso8601(DateTime.utc_now)
         }
         with {:ok, _result} <- Dynamo.put_item("historical_datum", historical_datum) |> ExAws.request() do
             conn

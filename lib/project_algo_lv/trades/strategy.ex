@@ -1,13 +1,13 @@
 defmodule ProjectAlgoLv.Trades.Strategy do
   use Ecto.Schema
   import Ecto.Changeset
-  alias ProjectAlgoLv.Accounts.User
+  alias ProjectAlgoLv.Trades.TradeAccount
 
   schema "strategies" do
     field :access_token, :string
     field :description, :string
     field :name, :string
-    belongs_to :user, User
+    belongs_to :trade_account, TradeAccount
 
     timestamps()
   end
@@ -15,9 +15,9 @@ defmodule ProjectAlgoLv.Trades.Strategy do
   @doc false
   def changeset(strategy, attrs) do
     strategy
-    |> cast(attrs, [:name, :description, :access_token])
+    |> cast(attrs, [:name, :description, :access_token, :trade_account_id])
     |> gen_access_token()
-    |> validate_required([:name, :access_token])
+    |> validate_required([:name, :access_token, :trade_account_id])
   end
 
   defp gen_access_token(changeset) do

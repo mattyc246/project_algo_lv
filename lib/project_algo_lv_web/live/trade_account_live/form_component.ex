@@ -41,7 +41,7 @@ defmodule ProjectAlgoLvWeb.TradeAccountLive.FormComponent do
   end
 
   defp save_trade_account(socket, :new, trade_account_params) do
-    case Trades.create_trade_account(trade_account_params) do
+    case Trades.create_trade_account(socket.assigns.user, trade_account_params) do
       {:ok, _trade_account} ->
         {:noreply,
          socket

@@ -19,5 +19,6 @@ defmodule ProjectAlgoLvWeb.StrategyLive.New do
     |> assign(:page_title, "New Strategy")
     |> assign(:page_icon, "/icons/calculator-black.png")
     |> assign(:strategy, %Strategy{})
+    |> assign(:trade_accounts, Trades.list_user_trade_accounts(socket.assigns.current_user))
   end
 end

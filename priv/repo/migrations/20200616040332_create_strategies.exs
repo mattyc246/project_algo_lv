@@ -6,11 +6,11 @@ defmodule ProjectAlgoLv.Repo.Migrations.CreateStrategies do
       add :name, :string, null: false
       add :description, :text
       add :access_token, :string, null: false
-      add :user_id, references(:users, on_delete: :delete_all)
+      add :trade_account_id, references(:trade_accounts, on_delete: :delete_all)
 
       timestamps()
     end
 
-    create index(:strategies, [:user_id])
+    create index(:strategies, [:trade_account_id])
   end
 end
