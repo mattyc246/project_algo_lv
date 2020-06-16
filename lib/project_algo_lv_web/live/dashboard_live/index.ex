@@ -1,20 +1,24 @@
 defmodule ProjectAlgoLvWeb.DashboardLive.Index do
   use ProjectAlgoLvWeb, :live_view
 
-  alias ProjectAlgoLvWeb.DynamoHelper
+  alias ProjectAlgoLvWeb.HistoricalHelper
   alias ProjectAlgoLv.Accounts
+  alias ProjectAlgoLv.Trades
   alias ProjectAlgoLv.Accounts.User
 
   @impl true
   def mount(_params, session, socket) do
-    :timer.send_interval(60_000, self(), :user_balances)
+    :timer.send_interval(600_000, self(), :user_balances)
+    user = Accounts.get_user!(session["user_id"])
+    accounts = for acc <- Trades.list_user_trade_accounts(user), do: acc.id
     {:ok,
       assign_defaults(session, socket)
-      |> assign(:balances, "")}
+      |> assign(:balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance(accounts)))}
   end
 
   def handle_info(:user_balances, socket) do
-    {:noreply, assign(socket, :balances, "")}
+    accounts = for acc <- Trades.list_user_trade_accounts(socket.assigns.current_user), do: acc.id
+    {:noreply, assign(socket, :balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance([1,2])))}
   end
 
   @impl true

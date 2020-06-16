@@ -3,6 +3,10 @@ defmodule ProjectAlgoLvWeb.DynamoHelper do
   alias ExAws.Dynamo
   alias ProjectAlgoLv.Trades.HistoricalDatum
 
+  def fetch_all_data do
+    Dynamo.scan(System.get_env("DYNAMODB_TABLE"))|> ExAws.request! |> Dynamo.decode_item(as: HistoricalDatum)
+  end
+
   def fetch_historical_data(id) do
     strategy = Trades.get_strategy!(id)
     items = get_historical_data_by_token(strategy.access_token)

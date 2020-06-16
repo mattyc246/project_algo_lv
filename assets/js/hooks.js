@@ -16,7 +16,7 @@ Hooks.Chart = {
   },
   mounted() {
     let historical = JSON.parse(this.el.dataset.historical);
-    console.log(historical)
+    console.log(historical);
     this.chart = this.createChart(historical);
   },
   updated() {
@@ -29,8 +29,16 @@ Hooks.BalanceChart = {
   lastData() {
     return JSON.parse(this.el.dataset.balances);
   },
+  sortData(data) {
+    let newData = {}
+    data.hour_range.forEach((hr) => {
+      newData[`${hr}:00`] = data[hr]
+    })
+    return newData
+  },
   createChart(data) {
-    return new Chartkick.LineChart("balance-chart", data, {
+    let sortedData = this.sortData(data);
+    return new Chartkick.LineChart("balance-chart", sortedData, {
       messages: { empty: "No data" },
       label: "Portfolio Balance",
       curve: false,
@@ -41,7 +49,7 @@ Hooks.BalanceChart = {
     this.chart = this.createChart(balances);
   },
   updated() {
-    let data = this.lastData();
+    let data = this.sortedData(this.lastData());
     this.chart.updateData(data);
   },
 };

@@ -6,14 +6,14 @@ defmodule ProjectAlgoLvWeb.StrategyLive.Show do
 
   @impl true
   def mount(%{"id" => id}, session, socket) do
-    :timer.send_interval(120_000, self(), :poll_data)
+    # :timer.send_interval(120_000, self(), :poll_data)
     {:ok,
       assign_defaults(session, socket)
-      |> assign(:historical_data, Jason.encode!(DynamoHelper.fetch_sorted_historical_data(id)))}
+      |> assign(:historical_data, Jason.encode!(%{one: 2}))}
   end
 
   def handle_info(:poll_data, socket) do
-    {:noreply, assign(socket, :historical_data, Jason.encode!(DynamoHelper.fetch_sorted_historical_data(socket.assigns.strategy.id)))}
+    {:noreply, assign(socket, :historical_data, Jason.encode!(%{one: 2}))}
   end
 
   @impl true
