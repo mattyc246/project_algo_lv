@@ -5,7 +5,6 @@ defmodule ProjectAlgoLvWeb.DashboardLive.ChartComponent do
   def update(%{balances: balances} = assigns, socket) do
     {:ok,
       socket
-      |> assign(:last_updated, DateTime.utc_now)
       |> assign(:balances, balances)}
   end
 

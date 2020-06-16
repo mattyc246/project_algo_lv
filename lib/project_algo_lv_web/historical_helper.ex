@@ -57,6 +57,14 @@ defmodule ProjectAlgoLvWeb.HistoricalHelper do
     |> Map.update("hour_range", hour_range, &(&1))
   end
 
+  def daily_first_last(accounts) do
+    data = hourly_wallet_balance(accounts)
+    %{
+      first: data[Integer.to_string(Enum.at(data["hour_range"], 0))],
+      last: data[Integer.to_string(Enum.at(data["hour_range"], Enum.count(data["hour_range"]) - 1))]
+    }
+  end
+
   def last_day_records(accounts) do
     data = get_data()
     # Create a list of the last 24hours of records for all accounts

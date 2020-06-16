@@ -7,7 +7,7 @@
         <%= for trade_account <- @trade_accounts do %>
           <div class="d-flex justify-content-between align-items-center py-3">
           <div>
-            <h3><%= trade_account.name %></h3>
+            <h5><%= trade_account.name %></h5>
             <div class="d-flex align-items-center my-3">
               <h6 class="m-0">Platform: </h6>
               <img class="ml-3" src='<%= Routes.static_path(@socket, "/images/#{trade_account.platform}.png") %>' alt="platform" width="80px">
@@ -21,13 +21,15 @@
     </div>
   </div>
   <div class="col-4">
-    <%= live_component @socket, ProjectAlgoLvWeb.TradeAccountLive.FormComponent,
-      id: :new,
-      title: "Add New Account",
-      action: :new,
-      trade_account: @trade_account,
-      user: @current_user,
-      return_to: Routes.trade_account_index_path(@socket, :index) %>
+    <div class="sticky-top">
+      <%= live_component @socket, ProjectAlgoLvWeb.TradeAccountLive.FormComponent,
+        id: :new,
+        title: "Add New Account",
+        action: :new,
+        trade_account: @trade_account,
+        user: @current_user,
+        return_to: Routes.trade_account_index_path(@socket, :index) %>
+    </div>
   </div>
 </div>
 

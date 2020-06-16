@@ -1,1 +1,68 @@
-<%= live_component @socket, ProjectAlgoLvWeb.DashboardLive.ChartComponent, balances: @balances %>
+<div class="row">
+  <div class="col-12">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-10">
+            <%= live_component @socket, ProjectAlgoLvWeb.DashboardLive.ChartComponent, balances: @balances %>
+            <small class="d-block my-4">
+              Last Update:
+              <%= @last_updated.day %>/<%= @last_updated.month %>/<%= @last_updated.year %> -
+              <%= @last_updated.hour %>:<%= @last_updated.minute %>:<%= @last_updated.second %>
+            </small>
+          </div>
+          <div class="col-2">
+            <div class="card border-blue rounded shadow p-2">
+              <div class="text-center my-3">
+                <h6>USD</h6>
+                <p class="my-4">$<%= @combined_balance || 0 %></p>
+                <h6>Equity</h6>
+              </div>
+              <hr>
+              <div class="text-center my-3">
+                <h6>USD</h6>
+                <%= cond do %>
+                  <% (@first_last.last - @first_last.first) > 0 -> %>
+                    <p class="my-4 text-success">
+                     &uarr; $<%= :erlang.float_to_binary(@first_last.last - @first_last.first, [decimals: 2]) %>
+                    </p>
+                  <% (@first_last.last - @first_last.first) < 0 -> %>
+                    <p class="my-4 text-danger">
+                      &darr; $<%= :erlang.float_to_binary(@first_last.last - @first_last.first, [decimals: 2]) %>
+                    </p>
+                  <% (@first_last.last - @first_last.first) == 0 -> %>
+                    <p class="my-4">
+                      - $<%= :erlang.float_to_binary(@first_last.last - @first_last.first, [decimals: 2]) %>
+                    </p>
+                <% end %>
+                <h6>Profit / Loss</h6>
+                <h6>24H</h6>
+              </div>
+              <hr>
+              <div class="text-center my-3">
+                <h6>USD</h6>
+                <%= cond do %>
+                  <% ((@first_last.last - @first_last.first) / @first_last.first) * 100 > 0 -> %>
+                    <p class="my-4 text-success">
+                     &uarr; <%= :erlang.float_to_binary(((@first_last.last - @first_last.first) / @first_last.first) * 100, [decimals: 2]) %>%
+                    </p>
+                  <% ((@first_last.last - @first_last.first) / @first_last.first) * 100 < 0 -> %>
+                    <p class="my-4 text-danger">
+                      &darr; <%= :erlang.float_to_binary(((@first_last.last - @first_last.first) / @first_last.first) * 100, [decimals: 2]) %>%
+                    </p>
+                  <% ((@first_last.last - @first_last.first) / @first_last.first) * 100 == 0 -> %>
+                    <p class="my-4">
+                      - <%= :erlang.float_to_binary(((@first_last.last - @first_last.first) / @first_last.first) * 100, [decimals: 2]) %>%
+                    </p>
+                <% end %>
+                <h6>% Change</h6>
+                <h6>24H</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -3,6 +3,10 @@ import Chart from "chart.js";
 
 Chartkick.use(Chart);
 
+Chartkick.options = {
+  colors: ["#00FFFF", "#41487B", "#EF0E0E"],
+};
+
 let Hooks = {};
 
 Hooks.Chart = {
@@ -40,8 +44,15 @@ Hooks.BalanceChart = {
     let sortedData = this.sortData(data);
     return new Chartkick.LineChart("balance-chart", sortedData, {
       messages: { empty: "No data" },
-      label: "Portfolio Balance",
+      label: "Wallet Balance",
+      prefix: "$",
       curve: false,
+      library: {
+        title: {
+          display: true,
+          text: "Wallet Balance - 24H",
+        },
+      },
     });
   },
   mounted() {

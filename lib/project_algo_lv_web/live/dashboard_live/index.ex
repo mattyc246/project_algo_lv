@@ -13,12 +13,19 @@ defmodule ProjectAlgoLvWeb.DashboardLive.Index do
     accounts = for acc <- Trades.list_user_trade_accounts(user), do: acc.id
     {:ok,
       assign_defaults(session, socket)
-      |> assign(:balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance(accounts)))}
+      |> assign(:balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance(accounts)))
+      |> assign(:combined_balance, HistoricalHelper.combined_account_balance(accounts))
+      |> assign(:first_last, HistoricalHelper.daily_first_last(accounts))
+      |> assign(:last_updated, DateTime.utc_now)}
   end
 
   def handle_info(:user_balances, socket) do
     accounts = for acc <- Trades.list_user_trade_accounts(socket.assigns.current_user), do: acc.id
-    {:noreply, assign(socket, :balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance([1,2])))}
+    {:noreply,
+      assign(socket, :balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance(accounts)))
+      |> assign(:combined_balance, HistoricalHelper.combined_account_balance(accounts))
+      |> assign(:first_last, HistoricalHelper.daily_first_last(accounts))
+      |> assign(:last_updated, DateTime.utc_now)}
   end
 
   @impl true
