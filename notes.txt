@@ -1,0 +1,20 @@
+- Main dashboard
+  - Fetch all the last records for each of the strategies a user has
+  - Sum up all the margin balances to get a total wallet value
+
+- Accounts
+  - Strategy needs to be linked to an account
+
+alias ProjectAlgoLvWeb.DynamoHelper
+alias ProjectAlgoLvWeb.HistoricalHelper
+HistoricalHelper.hourly_wallet_balance([1,2])
+items = DynamoHelper.fetch_all_data
+accounts = [2]
+{% comment %} HistoricalHelper.combined_account_balance(items) {% endcomment %}
+
+- Maybe algorithm doesn't send every hour or minute or whtever
+  - If there is no data for a particular hour, just use the last record that was recorded
+  [
+    :"1" => %{:"10" => 124, :"12" => 125},
+    :"2" => %{:"12" => 50, :"11" => 55, :"12" => 52}
+  ]

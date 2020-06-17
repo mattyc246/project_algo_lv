@@ -1,0 +1,5 @@
+<%= if @revealed == true do %>
+  <span><%= @token %></span>
+<% else %>
+  <span class="ctr-btn" phx-click="reveal" phx-target="<%= @myself %>">Click to reveal</span>
+<% end %>

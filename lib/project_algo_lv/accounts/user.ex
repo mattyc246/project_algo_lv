@@ -1,6 +1,7 @@
 defmodule ProjectAlgoLv.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+  alias ProjectAlgoLv.Trades.Strategy
 
   schema "users" do
     field :email, :string
@@ -8,6 +9,7 @@ defmodule ProjectAlgoLv.Accounts.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :password_hash, :string
+    has_many :strategies, Strategy
 
     timestamps()
   end

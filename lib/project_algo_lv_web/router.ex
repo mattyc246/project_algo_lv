@@ -16,6 +16,7 @@ defmodule ProjectAlgoLvWeb.Router do
   end
 
   pipeline :api do
+    plug CORSPlug, origin: "*"
     plug :accepts, ["json"]
   end
 
@@ -30,28 +31,28 @@ defmodule ProjectAlgoLvWeb.Router do
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     post "/logout", SessionController, :delete
-    # live "/", HomeLive, :index
-    # live "/users", UserLive.Index, :index
-    # live "/invite/:invite_code", UserLive.New, :new
-    # live "/users/:id/edit", UserLive.Index, :edit
-
-    # live "/users/login", UserLive.Session, :new
-
-    # live "/users/:id", UserLive.Show, :show
-    # live "/users/:id/show/edit", UserLive.Show, :edit
   end
 
-  scope "/", ProjectAlgoLvWeb do
+  scope "/dashboard", ProjectAlgoLvWeb do
     pipe_through [:browser, :authenticated_user]
 
-    live "/dashboard", DashboardLive.Index, :index
-    live "/dashboard/accounts", AccountsLive.Index, :index
+    live "/", DashboardLive.Index, :index
+
+    live "/strategies", StrategyLive.Index, :index
+    live "/strategies/new", StrategyLive.New, :new
+    live "/strategies/:id/edit", StrategyLive.Edit, :edit
+
+    live "/strategies/:id", StrategyLive.Show, :show
+
+    live "/accounts", TradeAccountLive.Index, :index
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", ProjectAlgoLvWeb do
-  #   pipe_through :api
-  # end
+  scope "/api/v1", ProjectAlgoLvWeb do
+    pipe_through :api
+
+    post "/strategy/", HistoricalDatumController, :create
+  end
 
   # Enables LiveDashboard only for development
   #

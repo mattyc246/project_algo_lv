@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-8">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+        <h3 class="my-3">Trade Accounts</h3>
+        <hr>
+        <%= for trade_account <- @trade_accounts do %>
+          <div class="d-flex justify-content-between align-items-center py-3">
+          <div>
+            <h5><%= trade_account.name %></h5>
+            <div class="d-flex align-items-center my-3">
+              <h6 class="m-0">Platform: </h6>
+              <img class="ml-3" src='<%= Routes.static_path(@socket, "/images/#{trade_account.platform}.png") %>' alt="platform" width="80px">
+            </div>
+          </div>
+            <span><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: trade_account.id, data: [confirm: "Are you sure?"], class: "text-danger" %></span>
+          </div>
+          <hr>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <div class="sticky-top">
+      <%= live_component @socket, ProjectAlgoLvWeb.TradeAccountLive.FormComponent,
+        id: :new,
+        title: "Add New Account",
+        action: :new,
+        trade_account: @trade_account,
+        user: @current_user,
+        return_to: Routes.trade_account_index_path(@socket, :index) %>
+    </div>
+  </div>
+</div>
+
+
+

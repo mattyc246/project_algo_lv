@@ -1,19 +1,23 @@
-<div class="dash-nav">
+<div class='dash-nav <%= if @expanded, do: "expanded", else: "" %>'>
   <div class="dash-brand">
-    <img src='<%= Routes.static_path(@socket, "/icons/open-menu.png") %>' alt="burger" class="burger">
+    <img src='<%= Routes.static_path(@socket, "/icons/open-menu.png") %>' phx-click="expand" phx-target="<%= @myself %>" alt="burger" class="burger">
     <div class="brand">
       <img src='<%= Routes.static_path(@socket, "/icons/report-white.png") %>' alt="graph" width="30px">
       <h5>PROJECTALGO</h5>
     </div>
   </div>
   <div class="dash-links">
-    <%= link to: Routes.dashboard_index_path(@socket, :index), class: "dash-btn mb-4 mt-2" do %>
+    <%= link to: Routes.dashboard_index_path(@socket, :index), class: "dash-btn mb-5 mt-2" do %>
       <img src='<%= Routes.static_path(@socket, "/icons/menu.png") %>' alt="menu" width="25px">
       <small>Dashboard</small>
     <% end %>
-    <%= link to: Routes.accounts_index_path(@socket, :index), class: "dash-btn mb-4" do %>
+    <%= link to: Routes.trade_account_index_path(@socket, :index), class: "dash-btn mb-5" do %>
       <img src='<%= Routes.static_path(@socket, "/icons/graph.png") %>' alt="menu" width="25px">
       <small>Accounts</small>
+    <% end %>
+    <%= link to: Routes.strategy_index_path(@socket, :index), class: "dash-btn mb-5" do %>
+      <img src='<%= Routes.static_path(@socket, "/icons/calculator.png") %>' alt="menu" width="25px">
+      <small>Strategies</small>
     <% end %>
   </div>
   <div class="dash-footer">

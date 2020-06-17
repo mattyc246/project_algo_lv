@@ -1,0 +1,68 @@
+<div class="row mb-3">
+  <div class="col-12">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+        <div class="row">
+          <div class="col-3">
+            <div class="d-flex justify-content-between">
+              <%= live_redirect "Back", to: Routes.strategy_index_path(@socket, :index), class: "link-btn" %>
+              <%= live_patch "Edit", to: Routes.strategy_edit_path(@socket, :edit, @strategy), class: "link-btn bg-warning" %>
+            </div>
+          </div>
+          <div class="col-8">
+            <h5>Description</h5>
+            <p><%= @strategy.description %></p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+      <h5 class="text-center my-3">Margin Balance - Last 50 Entries</h5>
+        <%= live_component @socket, ProjectAlgoLvWeb.StrategyLive.ChartComponent, chart_data: @chart_data %>
+        <small class="d-block my-3">Last Update: <%= @last_updated %></small>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row my-3">
+  <div class="col-12">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+        <h3 class="my-3">Historical Data <span class="small-text">(Last 50 entries)</span></h3>
+        <table class="table table-hover table-sm">
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Wallet Bal</th>
+              <th scope="col">Margin Bal</th>
+              <th scope="col">Realised PNL</th>
+              <th scope="col">Positions</th>
+              <th scope="col">Avg Entry Price</th>
+              <th scope="col">Last Price</th>
+              <th scope="col">Timestamp</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for {hd, idx} <- Enum.with_index(@historical_data) do%>
+              <tr>
+                <td><%= idx + 1 %></td>
+                <td><%= hd.wallet_balance %></td>
+                <td><%= hd.margin_balance %></td>
+                <td><%= hd.realised_pnl %></td>
+                <td><%= hd.positions %></td>
+                <td><%= hd.average_entry_price %></td>
+                <td><%= hd.last_price %></td>
+                <td><%= DateTime.from_iso8601(hd.created_at) |> fn {_, dt, _} -> Timex.format!(dt, "{YYYY}/{M}/{D} - {h24}:{m}:{s}") end.() %></td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

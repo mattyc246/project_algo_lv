@@ -47,7 +47,11 @@ defmodule ProjectAlgoLv.MixProject do
       {:gettext, "~> 0.11"},
       {:jason, "~> 1.0"},
       {:plug_cowboy, "~> 2.0"},
-      {:pbkdf2_elixir, "~> 1.2.1"}
+      {:pbkdf2_elixir, "~> 1.2.1"},
+      {:ex_aws_dynamo, "~> 3.0"},
+      {:hackney, "~> 1.9"},
+      {:cors_plug, "~> 1.5"},
+      {:timex, "~> 3.6.2"}
     ]
   end
 

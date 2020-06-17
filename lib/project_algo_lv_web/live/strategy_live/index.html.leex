@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+        <h3 class="my-3">Strategies</h3>
+          <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Strategy Name</th>
+                <th scope="col">Access Token</th>
+                <th scope="col">View</th>
+                <th scope="col">Edit</th>
+                <th scope="col">Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+              <%= for {strategy, idx} <- Enum.with_index(@strategies) do %>
+                <tr id="strategy-<%= strategy.id %>">
+                  <td><%= idx + 1 %></td>
+                  <td><%= strategy.name %></td>
+                  <td style="min-width: 400px;"><%= live_component @socket, ProjectAlgoLvWeb.StrategyLive.HiddenTokenComponent, id: strategy.id, token: strategy.access_token %></td>
+                  <td><%= live_redirect "Show", to: Routes.strategy_show_path(@socket, :show, strategy) %></td>
+                  <td><%= live_patch "Edit", to: Routes.strategy_edit_path(@socket, :edit, strategy) %></td>
+                  <td><%= link "Delete", to: "#", phx_click: "delete", phx_value_id: strategy.id, data: [confirm: "Are you sure?"], class: "text-danger" %></td>
+                  </td>
+                </tr>
+              <% end %>
+            </tbody>
+          </table>
+
+        <hr />
+        <%= live_patch "Create New Strategy", to: Routes.strategy_new_path(@socket, :new), class: "link-btn block-btn" %>
+      </div>
+    </div>
+  </div>
+</div>

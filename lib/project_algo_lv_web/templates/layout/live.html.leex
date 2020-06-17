@@ -1,6 +1,6 @@
 <div class="bg-container">
   <div class="dashboard-container">
-    <%= live_component @socket, ProjectAlgoLvWeb.Navbar %>
+    <%= live_component @socket, ProjectAlgoLvWeb.Navbar, id: "navbar" %>
     <div class="dash-content">
       <div class="dash-title">
         <div class="page-title">
@@ -9,7 +9,7 @@
         </div>
         <div class="user-details">
           <small>
-            John Smith | Membership Status: <span>Active</span>
+            <%= @current_user.name %> | Membership Status: <span>Active</span>
           </small>
           <small>
             Expires:

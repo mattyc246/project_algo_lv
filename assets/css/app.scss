@@ -40,13 +40,16 @@ body {
 .link-btn {
   display: block;
   text-align: center;
-  max-width: 200px;
   padding: 0.75rem 2rem;
   color: $primary-white;
   background-color: $secondary-blue;
   border: 0;
   outline: none;
   text-decoration: none;
+}
+
+.max-200 {
+  max-width: 200px;
 }
 
 .link-btn:hover {
@@ -64,6 +67,19 @@ body {
 
 .text-larger {
   font-size: larger;
+}
+
+.ctr-btn {
+  color: $secondary-blue;
+  cursor: pointer;
+}
+
+.border-blue {
+  border: 1px solid $secondary-blue;
+}
+
+.small-text {
+  font-size: small;
 }
 
 /* LiveView specific classes for your customizations */
