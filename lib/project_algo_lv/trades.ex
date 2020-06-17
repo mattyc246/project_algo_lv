@@ -60,7 +60,7 @@ defmodule ProjectAlgoLv.Trades do
   """
   def create_strategy(attrs \\ %{}) do
     %Strategy{}
-    |> Strategy.changeset(attrs)
+    |> Strategy.create_changeset(attrs)
     |> Repo.insert()
   end
 

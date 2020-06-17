@@ -11,17 +11,21 @@ let Hooks = {};
 
 Hooks.Chart = {
   lastData() {
-    return JSON.parse(this.el.dataset.historical);
+    return JSON.parse(this.el.dataset.strategy);
   },
   createChart(data) {
     return new Chartkick.LineChart("chart", data, {
       messages: { empty: "No data" },
+      label: "Margin Balance",
+      prefix: "$",
+      curve: false,
+      xtitle: "Timeline",
+      ytitle: "Margin Balance - USD",
     });
   },
   mounted() {
-    let historical = JSON.parse(this.el.dataset.historical);
-    console.log(historical);
-    this.chart = this.createChart(historical);
+    let chartData = JSON.parse(this.el.dataset.strategy);
+    this.chart = this.createChart(chartData);
   },
   updated() {
     let data = this.lastData();
@@ -47,12 +51,8 @@ Hooks.BalanceChart = {
       label: "Wallet Balance",
       prefix: "$",
       curve: false,
-      library: {
-        title: {
-          display: true,
-          text: "Wallet Balance - 24H",
-        },
-      },
+      xtitle: "Timeline",
+      ytitle: "Wallet Balance - USD",
     });
   },
   mounted() {
@@ -60,7 +60,7 @@ Hooks.BalanceChart = {
     this.chart = this.createChart(balances);
   },
   updated() {
-    let data = this.sortedData(this.lastData());
+    let data = this.sortData(this.lastData());
     this.chart.updateData(data);
   },
 };

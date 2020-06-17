@@ -9,12 +9,21 @@ defmodule ProjectAlgoLvWeb.HistoricalHelper do
     end)
   end
 
+  def get_strategy_balances(token) do
+    get_strategy_records(token)
+    |> Enum.reduce(%{}, fn hd, acc ->
+      Map.put(acc, hd.created_at, hd.margin_balance)
+    end)
+  end
+
   def get_strategy_records(token) do
     data = get_data()
     # Create a list of all the records for a specific strategy
     Enum.reduce(data, [], fn hd, acc ->
-      if hd.strategy_access_token == token, do: [hd | acc], else: acc
+      if hd.strategy_access_token == token, do: [Map.from_struct(hd) | acc], else: acc
     end)
+    |> Enum.sort_by(&(&1.created_at), :desc)
+    |> Enum.slice(0, 50)
   end
 
   def hourly_wallet_balance(accounts) do

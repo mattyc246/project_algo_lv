@@ -27,7 +27,7 @@ defmodule ProjectAlgoLvWeb.StrategyLive.FormComponent do
     save_strategy(socket, socket.assigns.action, strategy_params)
   end
 
-  defp save_strategy(socket, :edit, strategy_params, _user) do
+  defp save_strategy(socket, :edit, strategy_params) do
     case Trades.update_strategy(socket.assigns.strategy, strategy_params) do
       {:ok, _strategy} ->
         {:noreply,

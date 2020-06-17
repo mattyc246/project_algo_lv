@@ -13,10 +13,16 @@ defmodule ProjectAlgoLv.Trades.Strategy do
   end
 
   @doc false
-  def changeset(strategy, attrs) do
+  def create_changeset(strategy, attrs) do
     strategy
     |> cast(attrs, [:name, :description, :access_token, :trade_account_id])
     |> gen_access_token()
+    |> validate_required([:name, :access_token, :trade_account_id])
+  end
+
+  def changeset(strategy, attrs) do
+    strategy
+    |> cast(attrs, [:name, :description, :access_token, :trade_account_id])
     |> validate_required([:name, :access_token, :trade_account_id])
   end
 

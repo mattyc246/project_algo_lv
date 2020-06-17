@@ -78,6 +78,10 @@ body {
   border: 1px solid $secondary-blue;
 }
 
+.small-text {
+  font-size: small;
+}
+
 /* LiveView specific classes for your customizations */
 .invalid-feedback {
   color: #a94442;

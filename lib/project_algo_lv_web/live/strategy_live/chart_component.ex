@@ -2,11 +2,10 @@ defmodule ProjectAlgoLvWeb.StrategyLive.ChartComponent do
   use ProjectAlgoLvWeb, :live_component
 
   @impl true
-  def update(%{historical_data: historical_data} = assigns, socket) do
+  def update(%{chart_data: chart_data} = assigns, socket) do
     {:ok,
       socket
-      |> assign(:last_updated, DateTime.utc_now)
-      |> assign(:historical_data, historical_data)}
+      |> assign(:chart_data, chart_data)}
   end
 
   def mount(session, socket) do

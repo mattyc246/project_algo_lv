@@ -16,7 +16,7 @@ defmodule ProjectAlgoLvWeb.DashboardLive.Index do
       |> assign(:balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance(accounts)))
       |> assign(:combined_balance, HistoricalHelper.combined_account_balance(accounts))
       |> assign(:first_last, HistoricalHelper.daily_first_last(accounts))
-      |> assign(:last_updated, DateTime.utc_now)}
+      |> assign(:last_updated, Timex.format!(DateTime.utc_now, "{YYYY}/{M}/{D} - {h24}:{m}:{s}"))}
   end
 
   def handle_info(:user_balances, socket) do
@@ -25,7 +25,7 @@ defmodule ProjectAlgoLvWeb.DashboardLive.Index do
       assign(socket, :balances, Jason.encode!(HistoricalHelper.hourly_wallet_balance(accounts)))
       |> assign(:combined_balance, HistoricalHelper.combined_account_balance(accounts))
       |> assign(:first_last, HistoricalHelper.daily_first_last(accounts))
-      |> assign(:last_updated, DateTime.utc_now)}
+      |> assign(:last_updated, Timex.format!(DateTime.utc_now, "{YYYY}/{M}/{D} - {h24}:{m}:{s}"))}
   end
 
   @impl true

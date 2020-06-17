@@ -4,11 +4,11 @@
       <div class="card-body">
         <div class="row">
           <div class="col-10">
+            <h5 class="text-center my-3">Wallet Balance - 24H</h5>
             <%= live_component @socket, ProjectAlgoLvWeb.DashboardLive.ChartComponent, balances: @balances %>
             <small class="d-block my-4">
               Last Update:
-              <%= @last_updated.day %>/<%= @last_updated.month %>/<%= @last_updated.year %> -
-              <%= @last_updated.hour %>:<%= @last_updated.minute %>:<%= @last_updated.second %>
+              <%= @last_updated %>
             </small>
           </div>
           <div class="col-2">
@@ -24,15 +24,15 @@
                 <%= cond do %>
                   <% (@first_last.last - @first_last.first) > 0 -> %>
                     <p class="my-4 text-success">
-                     &uarr; $<%= :erlang.float_to_binary(@first_last.last - @first_last.first, [decimals: 2]) %>
+                     &uarr; $<%= Float.round((@first_last.last - @first_last.first) / 1, 2) |> Float.to_string %>
                     </p>
                   <% (@first_last.last - @first_last.first) < 0 -> %>
                     <p class="my-4 text-danger">
-                      &darr; $<%= :erlang.float_to_binary(@first_last.last - @first_last.first, [decimals: 2]) %>
+                      &darr; $<%= Float.round((@first_last.last - @first_last.first) / 1, 2) |> Float.to_string %>
                     </p>
                   <% (@first_last.last - @first_last.first) == 0 -> %>
                     <p class="my-4">
-                      - $<%= :erlang.float_to_binary(@first_last.last - @first_last.first, [decimals: 2]) %>
+                      - $<%= Float.round((@first_last.last - @first_last.first) / 1, 2) |> Float.to_string %>
                     </p>
                 <% end %>
                 <h6>Profit / Loss</h6>
@@ -44,15 +44,15 @@
                 <%= cond do %>
                   <% ((@first_last.last - @first_last.first) / @first_last.first) * 100 > 0 -> %>
                     <p class="my-4 text-success">
-                     &uarr; <%= :erlang.float_to_binary(((@first_last.last - @first_last.first) / @first_last.first) * 100, [decimals: 2]) %>%
+                     &uarr; <%= Float.round((((@first_last.last - @first_last.first) / @first_last.first) * 100) / 1, 2) |> Float.to_string %>%
                     </p>
                   <% ((@first_last.last - @first_last.first) / @first_last.first) * 100 < 0 -> %>
                     <p class="my-4 text-danger">
-                      &darr; <%= :erlang.float_to_binary(((@first_last.last - @first_last.first) / @first_last.first) * 100, [decimals: 2]) %>%
+                      &darr; <%= Float.round((((@first_last.last - @first_last.first) / @first_last.first) * 100) / 1, 2) |> Float.to_string %>%
                     </p>
                   <% ((@first_last.last - @first_last.first) / @first_last.first) * 100 == 0 -> %>
                     <p class="my-4">
-                      - <%= :erlang.float_to_binary(((@first_last.last - @first_last.first) / @first_last.first) * 100, [decimals: 2]) %>%
+                      - <%= Float.round((((@first_last.last - @first_last.first) / @first_last.first) * 100 / 1), 2) |> Float.to_string %>%
                     </p>
                 <% end %>
                 <h6>% Change</h6>

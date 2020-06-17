@@ -1,19 +1,26 @@
 defmodule ProjectAlgoLvWeb.StrategyLive.Show do
   use ProjectAlgoLvWeb, :live_view
-  alias ProjectAlgoLvWeb.DynamoHelper
+  alias ProjectAlgoLvWeb.HistoricalHelper
 
   alias ProjectAlgoLv.Trades
 
   @impl true
   def mount(%{"id" => id}, session, socket) do
-    # :timer.send_interval(120_000, self(), :poll_data)
+    :timer.send_interval(60_000, self(), :poll_data)
+    strategy = Trades.get_strategy!(id)
     {:ok,
       assign_defaults(session, socket)
-      |> assign(:historical_data, Jason.encode!(%{one: 2}))}
+      |> assign(:last_updated, Timex.format!(DateTime.utc_now, "{YYYY}/{M}/{D} - {h24}:{m}:{s}"))
+      |> assign(:chart_data, Jason.encode!(HistoricalHelper.get_strategy_balances(strategy.access_token)))
+      |> assign(:historical_data, HistoricalHelper.get_strategy_records(strategy.access_token))}
   end
 
   def handle_info(:poll_data, socket) do
-    {:noreply, assign(socket, :historical_data, Jason.encode!(%{one: 2}))}
+    strategy = Trades.get_strategy!(socket.assigns.strategy.id)
+    {:noreply,
+      assign(socket, :historical_data, HistoricalHelper.get_strategy_records(strategy.access_token))
+      |> assign(:last_updated, Timex.format!(DateTime.utc_now, "{YYYY}/{M}/{D} - {h24}:{m}:{s}"))
+      |> assign(:chart_data, Jason.encode!(HistoricalHelper.get_strategy_balances(strategy.access_token)))}
   end
 
   @impl true
