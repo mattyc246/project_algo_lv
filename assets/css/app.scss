@@ -82,6 +82,15 @@ body {
   font-size: small;
 }
 
+.clickable:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.bg-blue {
+  background-color: $secondary-blue;
+}
+
 /* LiveView specific classes for your customizations */
 .invalid-feedback {
   color: #a94442;

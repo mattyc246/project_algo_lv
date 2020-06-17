@@ -1,6 +1,6 @@
 <div class="bg-container">
   <div class="dashboard-container">
-    <%= live_component @socket, ProjectAlgoLvWeb.Navbar, id: "navbar" %>
+    <%= live_component @socket, ProjectAlgoLvWeb.Navbar, id: "navbar", current_user: @current_user %>
     <div class="dash-content">
       <div class="dash-title">
         <div class="page-title">

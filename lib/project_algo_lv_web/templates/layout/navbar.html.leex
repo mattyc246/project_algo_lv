@@ -19,6 +19,12 @@
       <img src='<%= Routes.static_path(@socket, "/icons/calculator.png") %>' alt="menu" width="25px">
       <small>Strategies</small>
     <% end %>
+    <%= if Enum.member?(@current_user.roles, "admin") do %>
+      <%= link to: Routes.admin_index_path(@socket, :index), class: "dash-btn mb-5" do %>
+        <img src='<%= Routes.static_path(@socket, "/icons/settings.png") %>' alt="menu" width="25px">
+        <small>Admin</small>
+      <% end %>
+    <% end %>
   </div>
   <div class="dash-footer">
     <%= link to: Routes.session_path(@socket, :delete), method: :post, class: "dash-btn" do %>

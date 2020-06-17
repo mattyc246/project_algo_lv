@@ -5,6 +5,7 @@ defmodule ProjectAlgoLv.Repo.Migrations.CreateUsers do
     create table(:users) do
       add :name, :string
       add :email, :string
+      add :roles, {:array, :string}, default: ["member"]
       add :password_hash, :string
 
       timestamps()

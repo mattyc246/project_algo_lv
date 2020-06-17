@@ -19,6 +19,7 @@ import { LiveSocket } from "phoenix_live_view";
 import Chartkick from "chartkick";
 import Chart from "chart.js";
 import Hooks from "./hooks"
+import "./stripe"
 
 Chartkick.use(Chart);
 
