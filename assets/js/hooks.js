@@ -38,11 +38,11 @@ Hooks.BalanceChart = {
     return JSON.parse(this.el.dataset.balances);
   },
   sortData(data) {
-    let newData = {}
+    let newData = {};
     data.hour_range.forEach((hr) => {
-      newData[`${hr}:00`] = data[hr]
-    })
-    return newData
+      newData[`${hr}:00`] = data[hr];
+    });
+    return newData;
   },
   createChart(data) {
     let sortedData = this.sortData(data);
