@@ -4,7 +4,11 @@
       <img src='<%= Routes.static_path(@conn, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
       <h4 class="my-0 ml-3">projectalgo</h4>
     </div>
-    <%= link "Log In", to: Routes.home_path(@conn, :index), class: "link-btn" %>
+    <%= if @current_user do %>
+      <%= link "Log Out", to: Routes.session_path(@conn, :delete), method: :delete, class: "link-btn" %>
+    <% else %>
+      <%= link "Log In", to: Routes.session_path(@conn, :new), class: "link-btn" %>
+    <% end %>
   </nav>
   <div class="hero-container">
     <div class="container-fluid">

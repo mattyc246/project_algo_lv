@@ -1,6 +1,8 @@
 defmodule ProjectAlgoLv.Accounts.User do
   use Ecto.Schema
   import Ecto.Changeset
+
+  alias ProjectAlgoLv.Accounts.Invitation
   alias ProjectAlgoLv.Trades.Strategy
   alias ProjectAlgoLv.Memberships.Membership
 
@@ -11,6 +13,7 @@ defmodule ProjectAlgoLv.Accounts.User do
     field :password, :string, virtual: true
     field :password_confirmation, :string, virtual: true
     field :password_hash, :string
+    has_many :invitations, Invitation
     has_many :strategies, Strategy
     has_many :memberships, Membership
 

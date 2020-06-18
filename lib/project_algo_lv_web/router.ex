@@ -5,7 +5,7 @@ defmodule ProjectAlgoLvWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {ProjectAlgoLvWeb.LayoutView, :app}
+    plug :put_root_layout, {ProjectAlgoLvWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug ProjectAlgoLvWeb.Auth
@@ -18,6 +18,10 @@ defmodule ProjectAlgoLvWeb.Router do
 
   pipeline :authenticated_user do
     plug ProjectAlgoLvWeb.LoginRequired
+  end
+
+  pipeline :membership_required do
+    plug ProjectAlgoLvWeb.MembershipRequired
   end
 
   pipeline :api do
@@ -52,7 +56,7 @@ defmodule ProjectAlgoLvWeb.Router do
   end
 
   scope "/dashboard", ProjectAlgoLvWeb do
-    pipe_through [:browser, :authenticated_user]
+    pipe_through [:browser, :authenticated_user, :membership_required]
 
     live "/", DashboardLive.Index, :index
 

@@ -25,7 +25,7 @@ defmodule ProjectAlgoLvWeb.UserController do
       {:ok, _user} ->
         Accounts.update_invitation(invitation, %{invites: invitation.invites - 1})
          conn
-         |> put_flash(:info, "User created successfully")
+         |> put_flash(:info, "Login to continue")
          |> redirect(to: Routes.home_path(conn, :index))
       {:error, %Ecto.Changeset{} = changeset} ->
         conn

@@ -25,6 +25,7 @@ defmodule ProjectAlgoLvWeb.MembershipController do
 
   def create(conn, %{"transaction" => transaction_params}) do
     user = conn.assigns.current_user
+    transaction_params = Map.put(transaction_params, "billing_details", Jason.decode!(transaction_params["billing_details"]))
     membership_params = %{
       "start_date" => DateTime.utc_now,
       "end_date" =>  DateTime.utc_now |> DateTime.add(60*60*24*365)
@@ -35,9 +36,8 @@ defmodule ProjectAlgoLvWeb.MembershipController do
           {:ok, _transaction} ->
             conn
             |> put_flash(:info, "Payment success.")
-            |> redirect(to: Routes.home_path(conn, :index))
+            |> redirect(to: Routes.dashboard_index_path(conn, :index))
           {:error, reason} ->
-            IO.inspect(reason)
             conn
             |> put_flash(:error, "Error when creating transaction.")
             |> redirect(to: Routes.membership_path(conn, :new))

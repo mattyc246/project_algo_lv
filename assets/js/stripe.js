@@ -4,36 +4,34 @@ const initStripe = async () => {
 
   const stripe = await loadStripe(window.stripePublishableKey);
   const elements = stripe.elements({
-    fonts: [
-      {
-        cssSrc: "https://rsms.me/inter/inter-ui.css",
-      },
-    ],
-    // Stripe's examples are localized to specific languages, but if
-    // you wish to have Elements automatically detect your user's locale,
-    // use `locale: 'auto'` instead.
     locale: window.__exampleLocale,
   });
   window.stripe = stripe;
   window.stripeElements = elements;
 
   const card = elements.create("card", {
+    iconStyle: "solid",
     style: {
       base: {
-        color: "#ffffff",
-        fontWeight: 500,
-        fontFamily: "Inter UI, Open Sans, Segoe UI, sans-serif",
+        iconColor: "#fff",
+        color: "#fff",
+        fontWeight: 400,
+        fontFamily: "Helvetica Neue, Helvetica, Arial, sans-serif",
         fontSize: "16px",
         fontSmoothing: "antialiased",
 
         "::placeholder": {
-          color: "#CFD7DF",
+          color: "#BFAEF6"
         },
+        ":-webkit-autofill": {
+          color: "#fce883"
+        }
       },
       invalid: {
-        color: "#E25950",
-      },
-    },
+        iconColor: "#FFC7EE",
+        color: "#FFC7EE"
+      }
+    }
   });
 
   card.mount("#card-element");
@@ -49,36 +47,34 @@ const initStripe = async () => {
 
   const form = document.getElementById("payment-form");
 
-  const customerName = document.getElementById("customer-name").value;
   const clientSecret = document.getElementById("stripe-submit").getAttribute('data-secret');
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
+    const customerName = document.getElementById("cardholder-name").value;
     // Complete Payment With Stripe
     stripe
-      .confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: card,
-          billing_details: {
-            name: customerName,
-          },
+    .confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: card,
+        billing_details: {
+          name: customerName,
         },
-      })
-      .then(function (result) {
-        if (result.error) {
-          console.log(result.error)
-        } else {
-          // The payment has been processed!
-          if (result.paymentIntent.status === "succeeded") {
-            console.log(result)
-            let transForm = document.getElementById('transaction-form')
-            let transIdField = document.getElementById('transaction-id')
-            let transDetailsField = document.getElementById('transaction-details')
-            let transDateField = document.getElementById('transaction-date')
-            let transAmountField = document.getElementById('transaction-amount')
-            let transMethodField = document.getElementById('transaction-method')
+      },
+    })
+    .then(function (result) {
+      if (result.error) {
+        console.log(result.error)
+      } else {
+        // The payment has been processed!
+        if (result.paymentIntent.status === "succeeded") {
+          let transForm = document.getElementById('transaction-form')
+          let transIdField = document.getElementById('transaction-id')
+          let transDetailsField = document.getElementById('transaction-details')
+          let transDateField = document.getElementById('transaction-date')
+          let transAmountField = document.getElementById('transaction-amount')
+          let transMethodField = document.getElementById('transaction-method')
 
-            let countryField = document.getElementById('country').value
             let cityField = document.getElementById('city').value
             let stateField = document.getElementById('state').value
             let addressField = document.getElementById('address').value
@@ -88,14 +84,13 @@ const initStripe = async () => {
             transMethodField.value = result.paymentIntent.payment_method_types[0]
             transAmountField.value = result.paymentIntent.amount
             transDateField.value = new Date().toISOString()
-            transDetailsField.value = {
+            transDetailsField.value = JSON.stringify({
               "city": cityField,
               "state": stateField,
-              "country": countryField,
               "address": addressField,
               "postcode": postcodeField,
-              "cardHolderName": customerName
-            }
+              "name": customerName
+            })
             setTimeout(() => {
               transForm.submit()
             }, 2000)

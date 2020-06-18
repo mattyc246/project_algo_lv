@@ -4,7 +4,7 @@
       <img src='<%= Routes.static_path(@conn, "/icons/report.png") %>' alt="project-algo-logo" width="30px">
       <h4 class="my-0 ml-3">projectalgo</h4>
     </div>
-    <%= link "Home", to: Routes.home_path(@conn, :index), class: "link-btn" %>
+    <%= link "Sign Out", to: Routes.session_path(@conn, :delete), method: :post, class: "link-btn" %>
   </nav>
   <div class="hero-container">
     <div class="container-fluid">
@@ -12,12 +12,6 @@
         <div class="col-12 col-lg-6 offset-lg-3">
           <div class="card bg-blue border-0 rounded shadow">
             <div class="card-body">
-              <input id="customer-name" class="" value='<%= @current_user.name %>' />
-              <input id="address" class="" placeholder="185 Berry St" />
-              <input id="city" class="" placeholder="San Francisco" />
-              <input id="state" class="" placeholder="CA" />
-              <input id="country" class="" placeholder="United State" />
-              <input id="postcode" class="" placeholder="94107" />
               <%= render "form.html", Map.put(assigns, :action, Routes.membership_path(@conn, :create)) %>
             </div>
           </div>

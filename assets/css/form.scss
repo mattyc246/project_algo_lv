@@ -12,3 +12,13 @@
   border-bottom: 1.5px solid $secondary-blue;
   transition: 0.5s ease;
 }
+
+.stripe-input {
+  border: 0;
+  width: 100%;
+  color: #fff;
+  background: transparent;
+  padding: 5px 0 6px 0;
+  border-bottom: 1px solid #a988ec;
+  transition: border-color 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+}

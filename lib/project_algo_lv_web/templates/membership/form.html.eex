@@ -6,16 +6,42 @@
   <%= hidden_input f, :payment_method_type, [id: "transaction-method"] %>
 <% end %>
 
-<div class="stripe-card">
-  <p class="stripe-title text-center">Pay with card</p>
-  <div class="stripe-card-body">
-    <form id="payment-form">
-      <div id="card-element">
-        <!-- Elements will create input elements here -->
+<div class="stripe" id="stripe-form">
+  <form id="payment-form">
+    <fieldset>
+      <legend class="card-only">Pay with card</legend>
+      <div class="row">
+        <div class="field">
+          <label for="stripe-name">Cardholder Name</label>
+          <input id="cardholder-name" class="input" type="text" placeholder="Jane Doe" autocomplete="name">
+        </div>
       </div>
-      <!-- We'll put the error messages in this element -->
+      <div class="row">
+        <div class="field">
+          <label for="address">Address</label>
+          <input id="address" class="input" type="text" placeholder="185 Berry St" autocomplete="address-line1">
+        </div>
+      </div>
+      <div class="d-flex">
+        <div class="field">
+          <label for="city">City</label>
+          <input id="city" class="input" type="text" placeholder="San Francisco" autocomplete="address-level2">
+        </div>
+        <div class="field">
+          <label for="state">State</label>
+          <input id="state" class="input empty" type="text" placeholder="CA" autocomplete="address-level1">
+        </div>
+        <div class="field">
+          <label for="zip">Postcode</label>
+          <input id="postcode" class="input empty" type="text" placeholder="94107" autocomplete="postal-code">
+        </div>
+      </div>
+      <div class="field my-2">
+        <label for="card-element">Card</label>
+        <div id="card-element" class="input"></div>
+      </div>
       <div id="card-errors" role="alert"></div>
-      <button class="btn btn-success mx-auto d-block" data-secret="<%= @client_secret %>" id="stripe-submit">Pay $499</button>
-    </form>
-  </div>
+      <button id="stripe-submit" type="submit" data-secret="<%= @client_secret %>">Pay $499</button>
+    </fieldset>
+  </form>
 </div>
