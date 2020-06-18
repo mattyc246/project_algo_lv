@@ -4,6 +4,11 @@ const initStripe = async () => {
 
   const stripe = await loadStripe(window.stripePublishableKey);
   const elements = stripe.elements({
+    fonts: [
+      {
+        cssSrc: "https://rsms.me/inter/inter-ui.css",
+      },
+    ],
     // Stripe's examples are localized to specific languages, but if
     // you wish to have Elements automatically detect your user's locale,
     // use `locale: 'auto'` instead.
@@ -15,7 +20,7 @@ const initStripe = async () => {
   const card = elements.create("card", {
     style: {
       base: {
-        color: "#32325D",
+        color: "#ffffff",
         fontWeight: 500,
         fontFamily: "Inter UI, Open Sans, Segoe UI, sans-serif",
         fontSize: "16px",
@@ -44,21 +49,11 @@ const initStripe = async () => {
 
   const form = document.getElementById("payment-form");
 
-  const customerName = document.getElementById("customer-name").innerHTML;
+  const customerName = document.getElementById("customer-name").value;
   const clientSecret = document.getElementById("stripe-submit").getAttribute('data-secret');
 
   form.addEventListener("submit", function (ev) {
     ev.preventDefault();
-    window
-      .Toast({
-        text: "Payment processing, please wait",
-        duration: 3000,
-        close: true,
-        gravity: "top",
-        position: "left",
-        backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-      })
-      .showToast();
     // Complete Payment With Stripe
     stripe
       .confirmCardPayment(clientSecret, {
@@ -71,31 +66,36 @@ const initStripe = async () => {
       })
       .then(function (result) {
         if (result.error) {
-          window
-            .Toast({
-              text: result.error.message,
-              duration: 3000,
-              close: true,
-              gravity: "top", // `top` or `bottom`
-              position: "left", // `left`, `center` or `right`
-              backgroundColor: "linear-gradient(to right, #f26161, #f54242)",
-            })
-            .showToast();
+          console.log(result.error)
         } else {
           // The payment has been processed!
           if (result.paymentIntent.status === "succeeded") {
-            // Show a success message to your customer
-            window
-              .Toast({
-                text: "Payment successful, you are being redirected",
-                duration: 3000,
-                close: true,
-                gravity: "top",
-                position: "left",
-                backgroundColor: "linear-gradient(to right, #00b09b, #96c93d)",
-              })
-              .showToast();
+            console.log(result)
+            let transForm = document.getElementById('transaction-form')
+            let transIdField = document.getElementById('transaction-id')
+            let transDetailsField = document.getElementById('transaction-details')
+            let transDateField = document.getElementById('transaction-date')
+            let transAmountField = document.getElementById('transaction-amount')
+            let transMethodField = document.getElementById('transaction-method')
 
+            let countryField = document.getElementById('country').value
+            let cityField = document.getElementById('city').value
+            let stateField = document.getElementById('state').value
+            let addressField = document.getElementById('address').value
+            let postcodeField = document.getElementById('postcode').value
+
+            transIdField.value = result.paymentIntent.id
+            transMethodField.value = result.paymentIntent.payment_method_types[0]
+            transAmountField.value = result.paymentIntent.amount
+            transDateField.value = new Date().toISOString()
+            transDetailsField.value = {
+              "city": cityField,
+              "state": stateField,
+              "country": countryField,
+              "address": addressField,
+              "postcode": postcodeField,
+              "cardHolderName": customerName
+            }
             setTimeout(() => {
               transForm.submit()
             }, 2000)

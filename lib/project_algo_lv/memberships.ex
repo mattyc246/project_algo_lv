@@ -47,4 +47,8 @@ defmodule ProjectAlgoLv.Memberships do
     |> put_assoc(:membership, membership)
     |> Repo.insert()
   end
+  
+  def change_transaction(%Transaction{} = transaction, attrs \\ %{}) do
+    Transaction.changeset(transaction, attrs)
+  end
 end

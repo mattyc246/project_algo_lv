@@ -4,6 +4,7 @@ defmodule ProjectAlgoLvWeb.MembershipController do
   alias ProjectAlgoLv.Accounts.User
   alias ProjectAlgoLv.Memberships
   alias ProjectAlgoLv.Memberships.Membership
+  alias ProjectAlgoLv.Memberships.Transaction
 
   def new(conn, _params) do
     params = %{
@@ -11,9 +12,10 @@ defmodule ProjectAlgoLvWeb.MembershipController do
       "currency" => "usd",
       "title" => "Membership 1 year"
     }
+    changeset = Memberships.change_transaction(%Transaction{})
     case create_payment_intent(params) do
       {:ok, client_secret} ->
-        render(conn, "new.html", client_secret: client_secret)
+        render(conn, "new.html", client_secret: client_secret, changeset: changeset)
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Please try again later")
@@ -21,7 +23,7 @@ defmodule ProjectAlgoLvWeb.MembershipController do
     end
   end
 
-  def create(conn, %{"payment_details" => payment_params}) do
+  def create(conn, %{"transaction" => transaction_params}) do
     user = conn.assigns.current_user
     membership_params = %{
       "start_date" => DateTime.utc_now,
@@ -29,20 +31,21 @@ defmodule ProjectAlgoLvWeb.MembershipController do
     }
     case Memberships.create_membership(user, membership_params) do
       {:ok, membership} ->
-        case Memberships.create_transaction(membership, payment_params) do
+        case Memberships.create_transaction(membership, transaction_params) do
           {:ok, _transaction} ->
             conn
             |> put_flash(:info, "Payment success.")
             |> redirect(to: Routes.home_path(conn, :index))
-          {:error, _reason} ->
+          {:error, reason} ->
+            IO.inspect(reason)
             conn
             |> put_flash(:error, "Error when creating transaction.")
-            |> redirect(to: Routes.home_path(conn, :index))
+            |> redirect(to: Routes.membership_path(conn, :new))
         end
       {:error, _reason} ->
         conn
         |> put_flash(:error, "Error when creating membership.")
-        |> redirect(to: Routes.home_path(conn, :index))
+        |> redirect(to: Routes.membership_path(conn, :new))
     end
   end
 
