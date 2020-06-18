@@ -35,3 +35,6 @@ accounts = [2]
   - membership_id
   - payment_created_at
   - payment_method_type
+
+
+Accounts.create_user(%{name: "Matthew Cross", email: "matt@nextacademy.com", password: "Robert16", password_confirmation: "Robert16"})

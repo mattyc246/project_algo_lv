@@ -18,7 +18,7 @@ defmodule ProjectAlgoLvWeb.HistoricalDatumController do
             last_price: transaction_params["last_price"] / 1,
             created_at: DateTime.to_iso8601(DateTime.utc_now)
         }
-        with {:ok, _result} <- Dynamo.put_item("historical_datum", historical_datum) |> ExAws.request() do
+        with {:ok, _result} <- Dynamo.put_item(System.get_env("DYNAMODB_TABLE"), historical_datum) |> ExAws.request() do
             conn
             |> put_status(:created)
             |> json(%{status: true})
