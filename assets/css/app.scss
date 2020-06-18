@@ -8,6 +8,7 @@
 @import "./homepage";
 @import "./form";
 @import "./dashboard";
+@import "./stripe";
 
 * {
   box-sizing: border-box;
@@ -80,6 +81,15 @@ body {
 
 .small-text {
   font-size: small;
+}
+
+.clickable:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+.bg-blue {
+  background-color: $secondary-blue;
 }
 
 /* LiveView specific classes for your customizations */

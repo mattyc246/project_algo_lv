@@ -40,7 +40,28 @@ defmodule ProjectAlgoLv.Accounts do
 
   def get_user(id), do: Repo.get(User, id)
 
+  def get_user_with_membership(id) do
+    from(u in User, where: u.id == ^id)
+    |> preload(:memberships)
+    |> preload(:invitations)
+    |> Repo.one()
+  end
+
+  def get_user_and_membership_by(%{email: email}) do
+    from(u in User, where: u.email == ^email)
+    |> preload(:memberships)
+    |> preload(:invitations)
+    |> Repo.one()
+  end
+
   def get_user_by(params), do: Repo.get_by(User, params)
+
+  def list_users_and_memberships do
+    from(u in User)
+    |> preload(:memberships)
+    |> preload(:invitations)
+    |> Repo.all()
+  end
 
   @doc """
   Creates a user.
@@ -86,6 +107,18 @@ defmodule ProjectAlgoLv.Accounts do
     |> Repo.update()
   end
 
+  def add_user_role(%User{} = user, role) do
+    user
+    |> User.add_role_changeset(role)
+    |> Repo.update()
+  end
+
+  def remove_user_role(%User{} = user, role) do
+    user
+    |> User.remove_role_changeset(role)
+    |> Repo.update()
+  end
+
   @doc """
   Deletes a user.
 
@@ -116,7 +149,7 @@ defmodule ProjectAlgoLv.Accounts do
   end
 
   def authenticate_by_email_and_password(email, given_pass) do
-    user = get_user_by(email: email)
+    user = get_user_and_membership_by(%{email: email})
 
     cond do
       user && Pbkdf2.verify_pass(given_pass, user.password_hash) ->

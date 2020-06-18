@@ -5,14 +5,23 @@ defmodule ProjectAlgoLvWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
-    plug :put_root_layout, {ProjectAlgoLvWeb.LayoutView, :app}
+    plug :put_root_layout, {ProjectAlgoLvWeb.LayoutView, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug ProjectAlgoLvWeb.Auth
+    plug ProjectAlgoLvWeb.StripeClientToken
+  end
+
+  pipeline :administrative_user do
+    plug ProjectAlgoLvWeb.AdminRequired
   end
 
   pipeline :authenticated_user do
     plug ProjectAlgoLvWeb.LoginRequired
+  end
+
+  pipeline :membership_required do
+    plug ProjectAlgoLvWeb.MembershipRequired
   end
 
   pipeline :api do
@@ -33,8 +42,21 @@ defmodule ProjectAlgoLvWeb.Router do
     post "/logout", SessionController, :delete
   end
 
-  scope "/dashboard", ProjectAlgoLvWeb do
+  scope "/", ProjectAlgoLvWeb do
     pipe_through [:browser, :authenticated_user]
+
+    get "/memberships/checkout", MembershipController, :new
+    post "/memberships/", MembershipController, :create
+  end
+
+  scope "/admin", ProjectAlgoLvWeb do
+    pipe_through [:browser, :authenticated_user, :administrative_user]
+
+    live "/", AdminLive.Index, :index
+  end
+
+  scope "/dashboard", ProjectAlgoLvWeb do
+    pipe_through [:browser, :authenticated_user, :membership_required]
 
     live "/", DashboardLive.Index, :index
 

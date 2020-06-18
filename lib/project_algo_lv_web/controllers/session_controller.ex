@@ -4,7 +4,12 @@ defmodule ProjectAlgoLvWeb.SessionController do
   alias ProjectAlgoLv.Accounts
 
   def new(conn, _params) do
-    render(conn, "new.html")
+    if conn.assigns.current_user do
+      conn
+      |> redirect(to: Routes.dashboard_index_path(conn, :index))
+    else
+      render(conn, "new.html")
+    end
   end
 
   def create(conn, %{"session" => %{"email" => email, "password" => password}}) do

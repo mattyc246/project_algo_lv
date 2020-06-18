@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card border-0 rounded shadow">
+      <div class="card-body">
+        <h5 class="my-4">Manage Users</h5>
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">No.</th>
+              <th scope="col">Name</th>
+              <th scope="col">Email</th>
+              <th class="text-center">Roles</th>
+              <th class="text-center">Moderator</th>
+              <th class="text-center">Admin</th>
+              <th class="text-center">Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%= for {user, idx} <- Enum.with_index(@users) do %>
+              <tr>
+                <td><%= idx + 1 %></td>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td class="text-center">
+                  <%= for role <- user.roles do %>
+                    <small><%= role %> </small>
+                  <% end %>
+                </td>
+                <%= if Enum.member?(user.roles, "moderator") do %>
+                  <td class="text-center clickable" phx-value-user_id="<%= user.id %>" phx-value-role="moderator" phx-click="remove_role">- Remove Moderator</td>
+                <% else %>
+                  <td class="text-center clickable" phx-value-user_id="<%= user.id %>" phx-value-role="moderator" phx-click="add_role">+ Add Moderator</td>
+                <% end %>
+                <%= if Enum.member?(user.roles, "admin") do %>
+                  <td class="text-center clickable" phx-value-user_id="<%= user.id %>" phx-value-role="admin" phx-click="remove_role">- Remove Admin</td>
+                <% else %>
+                  <td class="text-center clickable" phx-value-user_id="<%= user.id %>" phx-value-role="admin" phx-click="add_role">+ Add Admin</td>
+                <% end %>
+                <td class="text-center text-danger">Delete</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

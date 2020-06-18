@@ -25,7 +25,7 @@ defmodule ProjectAlgoLvWeb.LiveHelpers do
   end
 
   def assign_defaults(%{"user_id" => user_id}, socket) do
-    socket = assign(socket, current_user: Accounts.get_user!(user_id))
+    socket = assign(socket, current_user: Accounts.get_user_with_membership(user_id))
 
     if socket.assigns.current_user do
       socket

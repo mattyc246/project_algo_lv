@@ -18,3 +18,20 @@ accounts = [2]
     :"1" => %{:"10" => 124, :"12" => 125},
     :"2" => %{:"12" => 50, :"11" => 55, :"12" => 52}
   ]
+
+  MEMBERSHIP
+
+- User doesn't have a role, so we need to add role to user [array] // member, moderator, admin
+- Admin page, to manage user roles and see users membership & status
+
+- Membership table
+  - user_id
+  - start_date
+  - end_date
+- Transaction table
+  - billing_details ?
+  - amount_paid
+  - payment_id
+  - membership_id
+  - payment_created_at
+  - payment_method_type

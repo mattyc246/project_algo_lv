@@ -51,7 +51,8 @@ defmodule ProjectAlgoLv.MixProject do
       {:ex_aws_dynamo, "~> 3.0"},
       {:hackney, "~> 1.9"},
       {:cors_plug, "~> 1.5"},
-      {:timex, "~> 3.6.2"}
+      {:timex, "~> 3.6.2"},
+      {:stripity_stripe, "~> 2.8.0"}
     ]
   end
 

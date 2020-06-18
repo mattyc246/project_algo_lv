@@ -1,20 +1,34 @@
 <div class="bg-container">
   <div class="dashboard-container">
-    <%= live_component @socket, ProjectAlgoLvWeb.Navbar, id: "navbar" %>
+    <%= live_component @socket, ProjectAlgoLvWeb.Navbar, id: "navbar", current_user: @current_user %>
     <div class="dash-content">
       <div class="dash-title">
         <div class="page-title">
           <img src='<%= Routes.static_path(@socket, @page_icon) %>' alt="icon" width="30px" />
           <h5><%= @page_title %></h5>
         </div>
-        <div class="user-details">
+        <div class="d-flex flex-column">
           <small>
-            <%= @current_user.name %> | Membership Status: <span>Active</span>
+            <b>Invite Code:</b>
+            <%= Enum.at(@current_user.invitations, 0).invite_code %>
           </small>
           <small>
-            Expires:
+            <b>Uses:</b>
+            <%= Enum.at(@current_user.invitations, 0).invites %>/5
+          </small>
+        </div>
+        <div class="user-details">
+          <small>
+            <%= @current_user.name %> | <b>Membership Status:</b> <span>Active</span>
+          </small>
+          <small>
+            <b>Expires:</b>
             <span>
-              10th June 2021
+              <%= if Enum.member?(@current_user.roles, "admin") || Enum.member?(@current_user.roles, "moderator") do %>
+                Never
+              <% else %>
+                <%= Timex.format!(Enum.at(@current_user.memberships, 0).end_date || DateTime.utc_now, "%d %B %Y", :strftime) %>
+              <% end %>
             </span>
           </small>
         </div>
