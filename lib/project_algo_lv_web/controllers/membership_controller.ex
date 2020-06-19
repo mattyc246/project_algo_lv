@@ -1,9 +1,7 @@
 defmodule ProjectAlgoLvWeb.MembershipController do
   use ProjectAlgoLvWeb, :controller
 
-  alias ProjectAlgoLv.Accounts.User
   alias ProjectAlgoLv.Memberships
-  alias ProjectAlgoLv.Memberships.Membership
   alias ProjectAlgoLv.Memberships.Transaction
 
   def new(conn, _params) do
@@ -37,7 +35,7 @@ defmodule ProjectAlgoLvWeb.MembershipController do
             conn
             |> put_flash(:info, "Payment success.")
             |> redirect(to: Routes.dashboard_index_path(conn, :index))
-          {:error, reason} ->
+          {:error, _reason} ->
             conn
             |> put_flash(:error, "Error when creating transaction.")
             |> redirect(to: Routes.membership_path(conn, :new))

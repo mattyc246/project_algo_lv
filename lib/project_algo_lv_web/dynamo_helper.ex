@@ -9,19 +9,19 @@ defmodule ProjectAlgoLvWeb.DynamoHelper do
 
   def fetch_historical_data(id) do
     strategy = Trades.get_strategy!(id)
-    items = get_historical_data_by_token(strategy.access_token)
+    get_historical_data_by_token(strategy.access_token)
   end
 
   def fetch_sorted_historical_data(id) do
     strategy = Trades.get_strategy!(id)
     items = get_historical_data_by_token(strategy.access_token)
-    map = Enum.reduce items, %{}, fn hd, data ->
+    Enum.reduce items, %{}, fn hd, data ->
       Map.put(data, hd.created_at, hd.margin_balance)
     end
   end
 
   def fetch_user_data(user) do
-    strategies = Trades.list_user_strategies(user)
+    Trades.list_user_strategies(user)
   end
 
   defp get_historical_data_by_token(token) do

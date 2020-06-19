@@ -3,7 +3,6 @@ defmodule ProjectAlgoLvWeb.TradeAccountLive.Index do
 
   alias ProjectAlgoLv.Accounts
   alias ProjectAlgoLv.Trades
-  alias ProjectAlgoLv.Accounts.User
   alias ProjectAlgoLv.Trades.TradeAccount
 
   @impl true

@@ -2,7 +2,7 @@ defmodule ProjectAlgoLvWeb.StrategyLive.HiddenTokenComponent do
   use ProjectAlgoLvWeb, :live_component
 
   @impl true
-  def update(%{token: token} = assigns, socket) do
+  def update(%{token: token}, socket) do
     {:ok,
       socket
       |> assign(:revealed, false)

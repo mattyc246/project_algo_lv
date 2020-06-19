@@ -2,7 +2,6 @@ defmodule ProjectAlgoLvWeb.StrategyLive.Edit do
   use ProjectAlgoLvWeb, :live_view
 
   alias ProjectAlgoLv.Trades
-  alias ProjectAlgoLv.Trades.Strategy
 
   @impl true
   def mount(_params, session, socket) do

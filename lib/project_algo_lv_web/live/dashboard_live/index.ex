@@ -4,7 +4,6 @@ defmodule ProjectAlgoLvWeb.DashboardLive.Index do
   alias ProjectAlgoLvWeb.HistoricalHelper
   alias ProjectAlgoLv.Accounts
   alias ProjectAlgoLv.Trades
-  alias ProjectAlgoLv.Accounts.User
 
   @impl true
   def mount(_params, session, socket) do
@@ -19,6 +18,7 @@ defmodule ProjectAlgoLvWeb.DashboardLive.Index do
       |> assign(:last_updated, Timex.format!(DateTime.utc_now, "{YYYY}/{M}/{D} - {h24}:{m}:{s}"))}
   end
 
+  @impl true
   def handle_info(:user_balances, socket) do
     accounts = for acc <- Trades.list_user_trade_accounts(socket.assigns.current_user), do: acc.id
     {:noreply,
