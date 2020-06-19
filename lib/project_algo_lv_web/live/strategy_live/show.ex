@@ -15,6 +15,7 @@ defmodule ProjectAlgoLvWeb.StrategyLive.Show do
       |> assign(:historical_data, HistoricalHelper.get_strategy_records(strategy.access_token))}
   end
 
+  @impl true
   def handle_info(:poll_data, socket) do
     strategy = Trades.get_strategy!(socket.assigns.strategy.id)
     {:noreply,

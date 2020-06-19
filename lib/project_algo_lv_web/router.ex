@@ -88,7 +88,7 @@ defmodule ProjectAlgoLvWeb.Router do
 
     scope "/" do
       pipe_through :browser
-      live_dashboard "/dashboard", metrics: ProjectAlgoLvWeb.Telemetry
+      live_dashboard "/live_dashboard", metrics: ProjectAlgoLvWeb.Telemetry
     end
   end
 end

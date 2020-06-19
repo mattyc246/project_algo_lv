@@ -1,6 +1,5 @@
 defmodule ProjectAlgoLvWeb.Navbar do
   use ProjectAlgoLvWeb, :live_component
-  alias ProjectAlgoLvWeb.LiveHelpers
 
   @impl true
   def update(assigns, socket) do
@@ -9,7 +8,7 @@ defmodule ProjectAlgoLvWeb.Navbar do
       |> assign(:expanded, false)}
   end
 
-  def mount(params, session, socket) do
+  def mount(_params, _session, socket) do
     {:ok, socket
       |> assign(:expanded, false)}
   end

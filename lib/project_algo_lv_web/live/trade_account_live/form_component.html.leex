@@ -13,12 +13,6 @@
         <%= error_tag f, :name %>
       </div>
 
-      <div class="form-group">
-        <%= label f, :platform %>
-        <%= select f, :platform, [[key: "Choose a platform", value: "", disabled: true],[key: "Bitmex", value: "bitmex"], [key: "Alpaca", value: "alpaca"]], [class: "custom-input"]%>
-        <%= error_tag f, :platform %>
-      </div>
-
       <%= submit "Add Account", phx_disable_with: "Saving...", class: "link-btn mx-auto my-3" %>
     </form>
   </div>

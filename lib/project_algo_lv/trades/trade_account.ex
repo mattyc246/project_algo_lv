@@ -7,7 +7,6 @@ defmodule ProjectAlgoLv.Trades.TradeAccount do
 
   schema "trade_accounts" do
     field :name, :string
-    field :platform, :string
     belongs_to :user, User
     has_many :strategies, Strategy
 
@@ -17,8 +16,8 @@ defmodule ProjectAlgoLv.Trades.TradeAccount do
   @doc false
   def changeset(trade_account, attrs) do
     trade_account
-    |> cast(attrs, [:name, :platform])
-    |> validate_required([:name, :platform])
+    |> cast(attrs, [:name])
+    |> validate_required([:name])
     |> unique_constraint(:name)
   end
 end

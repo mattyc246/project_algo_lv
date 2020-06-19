@@ -2,7 +2,7 @@ defmodule ProjectAlgoLvWeb.StrategyLive.ChartComponent do
   use ProjectAlgoLvWeb, :live_component
 
   @impl true
-  def update(%{chart_data: chart_data} = assigns, socket) do
+  def update(%{chart_data: chart_data}, socket) do
     {:ok,
       socket
       |> assign(:chart_data, chart_data)}
