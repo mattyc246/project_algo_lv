@@ -14,6 +14,8 @@ Hooks.Chart = {
     return JSON.parse(this.el.dataset.strategy);
   },
   createChart(data) {
+    let values = Object.values(data)
+
     return new Chartkick.LineChart("chart", data, {
       messages: { empty: "No data" },
       label: "Margin Balance",
@@ -21,6 +23,8 @@ Hooks.Chart = {
       curve: false,
       xtitle: "Timeline",
       ytitle: "Margin Balance - USD",
+      min: Math.min(...values),
+      max: Math.max(...values),
     });
   },
   mounted() {
