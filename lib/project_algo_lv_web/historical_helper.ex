@@ -23,7 +23,7 @@ defmodule ProjectAlgoLvWeb.HistoricalHelper do
       if hd.strategy_access_token == token, do: [Map.from_struct(hd) | acc], else: acc
     end)
     |> Enum.sort_by(&(&1.created_at), :desc)
-    |> Enum.slice(0, 50)
+    # |> Enum.slice(0, 200)
   end
 
   def hourly_wallet_balance(accounts) do
